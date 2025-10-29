@@ -216,6 +216,27 @@
             top: -8px;
             left: -8px;
         }
+		.logo-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all 0.5s ease;
+}
+
+.logo-3d img {
+    transform: rotateX(10deg) rotateY(-5deg);
+    box-shadow: 
+        15px 15px 30px rgba(45, 80, 22, 0.3),
+        -5px -5px 20px rgba(135, 169, 107, 0.2);
+    border-radius: 12px;
+    transition: all 0.5s ease;
+}
+
+.logo-3d:hover img {
+    transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
+    box-shadow: 
+        20px 20px 40px rgba(45, 80, 22, 0.4),
+        -10px -10px 30px rgba(135, 169, 107, 0.3);
+}
 		/* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .hero-section h1 {
@@ -284,9 +305,9 @@
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-sage-green/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-               <!-- Enhanced Logo -->
+               <!-- Enhanced 3D Logo -->
 <div class="flex items-center">
-    <a href="index.html" class="flex items-center space-x-2 space-x-reverse hover:opacity-80 transition-opacity">
+    <a href="index.html" class="flex items-center space-x-2 space-x-reverse hover:opacity-80 transition-opacity logo-3d">
         <!-- الشعار الكامل -->
         <img src="resources/logo.jpg" alt="Ribio - المنصة الجزائرية للمنتجات الطبيعية" 
              class="h-10 w-auto hidden md:block">
