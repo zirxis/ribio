@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنتجات - Ribio | المنصة الجزائرية للمنتجات الطبيعية</title>
+    <meta name="description" content="تصفح مجموعتنا الكاملة من المنتجات الطبيعية - زيوت، أعشاب، مكملات، عسل، صابون طبيعي ومنتجات العناية بالبشرة والشعر">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    <link href="https://unpkg.com/splitting@1.0.6/dist/splitting.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --sage-green: #87A96B;
+            --warm-cream: #F8F6F0;
+            --rich-earth: #8B4513;
+            --soft-mint: #E8F5E8;
+            --golden-honey: #DAA520;
+            --charcoal-gray: #36454F;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--charcoal-gray);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+        
+        .btn-primary {
+            background-color: var(--forest-green);
+            color: var(--warm-cream);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--sage-green);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.3);
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--sage-green);
+            color: var(--sage-green);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--sage-green);
+            color: var(--warm-cream);
+            transform: scale(1.05);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--forest-green), var(--sage-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .filter-sidebar {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(45, 80, 22, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.2);
+        }
+        
+        .filter-tag {
+            background: var(--soft-mint);
+            color: var(--forest-green);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .filter-tag:hover {
+            background: var(--sage-green);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .filter-tag.active {
+            background: var(--forest-green);
+            color: white;
+            border-color: var(--sage-green);
+        }
+        
+        .price-range {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--soft-mint);
+            outline: none;
+        }
+        
+        .price-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--forest-green);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(45, 80, 22, 0.3);
+        }
+        
+        .price-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--forest-green);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(45, 80, 22, 0.3);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--sage-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .cart-badge {
+            background-color: var(--golden-honey);
+            color: white;
+            font-size: 0.75rem;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            left: -8px;
+        }
+        
+        .search-input {
+            background: white;
+            border: 2px solid var(--sage-green);
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--forest-green);
+            box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.2);
+        }
+        
+        .sort-dropdown {
+            background: white;
+            border: 2px solid var(--sage-green);
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sort-dropdown:hover {
+            border-color: var(--forest-green);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-sage-green/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="font-display text-2xl font-bold text-gradient">Ribio</h1>
+                    <span class="ml-2 text-sm text-sage-green">🌿</span>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-charcoal-gray hover:text-sage-green">الرئيسية</a>
+                    <a href="products.html" class="nav-link text-forest-green font-medium">المنتجات</a>
+                    <a href="recipes.html" class="nav-link text-charcoal-gray hover:text-sage-green">الوصفات</a>
+                    <a href="education.html" class="nav-link text-charcoal-gray hover:text-sage-green">التعليم</a>
+                </div>
+                
+                <!-- Cart & Search -->
+                <div class="flex items-center space-x-4">
+                    <button class="text-charcoal-gray hover:text-sage-green transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                    <button class="relative text-charcoal-gray hover:text-sage-green transition-colors" onclick="toggleCart()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9"></path>
+                        </svg>
+                        <span id="cart-badge" class="cart-badge hidden">0</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-charcoal-gray hover:text-sage-green">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-gradient-to-br from-sage-green/10 to-forest-green/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center fade-in">
+                <h1 class="font-display text-4xl lg:text-6xl font-bold text-forest-green mb-6">منتجاتنا الطبيعية</h1>
+                <p class="text-xl text-charcoal-gray max-w-3xl mx-auto">
+                    اكتشف مجموعتنا المختارة بعناية من المنتجات الطبيعية المصنوعة يدوياً لدعم صحتك وجمالك
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Filter Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="filter-sidebar p-6">
+                        <h2 class="font-display text-2xl font-bold text-forest-green mb-6">تصفية المنتجات</h2>
+                        
+                        <!-- Search -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-charcoal-gray mb-2">البحث</label>
+                            <input type="text" id="search-input" placeholder="ابحث عن منتج..." 
+                                   class="search-input w-full">
+                        </div>
+                        
+                        <!-- Categories -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-charcoal-gray mb-3">الفئات</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" value="all" class="category-filter mr-2" checked>
+                                    <span class="text-charcoal-gray">الكل</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" value="skincare" class="category-filter mr-2">
+                                    <span class="text-charcoal-gray">العناية بالبشرة</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" value="haircare" class="category-filter mr-2">
+                                    <span class="text-charcoal-gray">العناية بالشعر</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" value="immunity" class="category-filter mr-2">
+                                    <span class="text-charcoal-gray">المناعة والصحة</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" value="wellness" class="category-filter mr-2">
+                                    <span class="text-charcoal-gray">العافية العامة</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-charcoal-gray mb-3">السعر</label>
+                            <div class="px-2">
+                                <input type="range" id="price-range" min="0" max="5000" value="5000" 
+                                       class="price-range">
+                                <div class="flex justify-between text-sm text-charcoal-gray mt-2">
+                                    <span>0 دج</span>
+                                    <span id="price-value">5000 دج</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Type -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-charcoal-gray mb-3">نوع المنتج</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="filter-tag active" data-type="all">الكل</button>
+                                <button class="filter-tag" data-type="oils">زيوت</button>
+                                <button class="filter-tag" data-type="herbs">أعشاب</button>
+                                <button class="filter-tag" data-type="supplements">مكملات</button>
+                                <button class="filter-tag" data-type="honey">عسل</button>
+                                <button class="filter-tag" data-type="soap">صابون</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Clear Filters -->
+                        <button onclick="clearFilters()" 
+                                class="w-full btn-secondary py-3 rounded-full font-semibold">
+                            مسح الفلاتر
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="lg:col-span-3">
+                    <!-- Sort and View Options -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-charcoal-gray font-semibold">ترتيب حسب:</span>
+                            <select id="sort-select" class="sort-dropdown">
+                                <option value="featured">المميز</option>
+                                <option value="price-low">السعر: من الأقل</option>
+                                <option value="price-high">السعر: من الأعلى</option>
+                                <option value="name">الاسم</option>
+                                <option value="rating">التقييم</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-center space-x-2">
+                            <span class="text-charcoal-gray text-sm">عدد المنتجات:</span>
+                            <span id="products-count" class="font-bold text-forest-green">24</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div id="products-grid" class="product-grid">
+                        <!-- Products will be loaded here dynamically -->
+                    </div>
+                    
+                    <!-- Loading Indicator -->
+                    <div id="loading-indicator" class="text-center py-12 hidden">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-forest-green"></div>
+                        <p class="mt-4 text-charcoal-gray">جاري تحميل المنتجات...</p>
+                    </div>
+                    
+                    <!-- No Results -->
+                    <div id="no-results" class="text-center py-12 hidden">
+                        <div class="text-6xl mb-4">🔍</div>
+                        <h3 class="font-display text-2xl font-bold text-forest-green mb-2">لا توجد نتائج</h3>
+                        <p class="text-charcoal-gray">حاول تعديل معايير البحث أو مسح الفلاتر</p>
+                        <button onclick="clearFilters()" class="btn-primary px-6 py-3 rounded-full mt-4">
+                            مسح الفلاتر
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 left-0 h-full w-96 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold text-forest-green">سلة التسوق</h3>
+                <button onclick="toggleCart()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-charcoal-gray text-center">سلة التسوق فارغة</p>
+        </div>
+        
+        <div class="border-t border-gray-200 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-bold text-lg">الإجمالي:</span>
+                <span id="cart-total" class="font-bold text-xl text-forest-green">0 دج</span>
+            </div>
+            <button onclick="proceedToCheckout()" class="btn-primary w-full py-3 rounded-full font-semibold">
+    إتمام الطلب
+</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-forest-green text-warm-cream py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="font-display text-3xl font-bold mb-4">Ribio</h3>
+                <p class="text-lg mb-6">منصتك الجزائرية للمنتجات الطبيعية والعناية الصحية</p>
+                
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <p class="text-sm text-warm-cream/80">
+                    © 2024 Ribio. جميع الحقوق محفوظة. | منصة جزائرية للمنتجات الطبيعية
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Products Page JavaScript
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentFilters = {
+            categories: ['all'],
+            priceRange: 5000,
+            productType: 'all',
+            search: ''
+        };
+
+        // Initialize products page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductsPage();
+        });
+
+        function initializeProductsPage() {
+            loadProducts();
+            initializeFilters();
+            initializeScrollAnimations();
+            loadCart();
+            
+            // Check for category from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                selectCategoryFilter(category);
+            }
+        }
+
+        // Product Data
+        function loadProducts() {
+            allProducts = [
+                {
+                    id: 'oils-set',
+                    name: 'مجموعة الزيوت الأساسية',
+                    price: 2500,
+                    category: 'skincare',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.8,
+                    description: '5 زيوت أساسية نقية للعناية بالبشرة والشعر',
+                    ingredients: 'زيت الأركان، زيت اللوز، زيت جوز الهند، زيت الزيتون، زيت الأفوكادو',
+                    benefits: 'ترطيب، تغذية، مكافحة الشيخوخة'
+                },
+                {
+                    id: 'herbal-soap',
+                    name: 'صابون الأعشاب الطبيعي',
+                    price: 450,
+                    category: 'skincare',
+                    type: 'soap',
+                    image: 'resources/product-soap.jpg',
+                    rating: 4.6,
+                    description: 'صابون مصنوع يدوياً بزيوت طبيعية وأعشاب',
+                    ingredients: 'زيت الزيتون، زيت جوز الهند، زيت الخروع، أعشاب طبيعية',
+                    benefits: 'تنظيف لطيف، ترطيب، مكافحة حب الشباب'
+                },
+                {
+                    id: 'raw-honey',
+                    name: 'عسل طبيعي خام',
+                    price: 1800,
+                    category: 'immunity',
+                    type: 'honey',
+                    image: 'resources/product-honey.jpg',
+                    rating: 4.9,
+                    description: 'عسل نقي من الجبال للمناعة والصحة',
+                    ingredients: '100% عسل طبيعي خام',
+                    benefits: 'رفع المناعة، طاقة طبيعية، مضاد حيوي طبيعي'
+                },
+                {
+                    id: 'herbs-collection',
+                    name: 'مجموعة الأعشاب الطبية',
+                    price: 1200,
+                    category: 'immunity',
+                    type: 'herbs',
+                    image: 'resources/product-herbs.jpg',
+                    rating: 4.7,
+                    description: '10 أعشاب طبية مجففة للشاي والعلاج',
+                    ingredients: 'زعتر، بابونج، نعناع، زنجبيل، قرفة، إكليل الجبل',
+                    benefits: 'هضم، استرخاء، طاقة، مناعة'
+                },
+                {
+                    id: 'argan-oil',
+                    name: 'زيت الأركان النقي',
+                    price: 1500,
+                    category: 'haircare',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.8,
+                    description: 'زيت أركان مغربي أصلي للشعر والبشرة',
+                    ingredients: '100% زيت أركان عضوي',
+                    benefits: 'ترطيب الشعر، مكافحة الشيخوخة، تغذية البشرة'
+                },
+                {
+                    id: 'rosemary-shampoo',
+                    name: 'شامبو إكليل الجبل',
+                    price: 800,
+                    category: 'haircare',
+                    type: 'soap',
+                    image: 'resources/product-soap.jpg',
+                    rating: 4.5,
+                    description: 'شامبو طبيعي لتقوية الشعر وتحفيز النمو',
+                    ingredients: 'إكليل الجبل، زيت الزيتون، صبار، بروتين القمح',
+                    benefits: 'تقوية الشعر، تحفيز النمو، منع تساقط الشعر'
+                },
+                {
+                    id: 'lavender-oil',
+                    name: 'زيت اللافندر المهدئ',
+                    price: 1200,
+                    category: 'wellness',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.6,
+                    description: 'زيت لافندر نقي للاسترخاء والنوم العميق',
+                    ingredients: '100% زيت لافندر أساسي',
+                    benefits: 'الاسترخاء، تحسين النوم، تقليل التوتر'
+                },
+                {
+                    id: 'turmeric-supplement',
+                    name: 'كبسولات الكركمين',
+                    price: 2000,
+                    category: 'immunity',
+                    type: 'supplements',
+                    image: 'resources/product-supplements.jpg',
+                    rating: 4.7,
+                    description: 'كبسولات الكركمين للمناعة ومكافحة الالتهابات',
+                    ingredients: 'كركمين، بيبيرين، فيتامين C',
+                    benefits: 'مضاد التهابات، مضاد أكسدة، دعم المناعة'
+                },
+                {
+                    id: 'shea-butter',
+                    name: 'زبدة الشيا العضوية',
+                    price: 900,
+                    category: 'skincare',
+                    type: 'supplements',
+                    image: 'resources/product-collection.jpg',
+                    rating: 4.8,
+                    description: 'زبدة شيا خام للترطيب العميق للبشرة والشعر',
+                    ingredients: '100% زبدة شيا عضوية خام',
+                    benefits: 'ترطيب عميق، تغذية، علاج الجفاف'
+                },
+                {
+                    id: 'green-tea',
+                    name: 'شاي أخضر عضوي',
+                    price: 600,
+                    category: 'wellness',
+                    type: 'herbs',
+                    image: 'resources/product-herbs.jpg',
+                    rating: 4.5,
+                    description: 'شاي أخضر عضوي للطاقة ومضادات الأكسدة',
+                    ingredients: 'أوراق شاي أخضر عضوية',
+                    benefits: 'طاقة، مضاد أكسدة، حرق الدهون'
+                },
+                {
+                    id: 'aloe-vera-gel',
+                    name: 'جل الصبار الطبيعي',
+                    price: 700,
+                    category: 'skincare',
+                    type: 'supplements',
+                    image: 'resources/product-collection.jpg',
+                    rating: 4.6,
+                    description: 'جل صبار طبيعي لعلاج البشرة والترطيب',
+                    ingredients: '100% جل صبار طبيعي',
+                    benefits: 'ترطيب، علاج، تهدئة البشرة'
+                },
+                {
+                    id: 'coconut-oil',
+                    name: 'زيت جوز الهند العضوي',
+                    price: 800,
+                    category: 'haircare',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.7,
+                    description: 'زيت جوز الهند متعدد الاستخدامات للبشرة والشعر',
+                    ingredients: '100% زيت جوز الهند عضوي',
+                    benefits: 'ترطيب، تغذية، مضاد بكتيري'
+                },
+                {
+                    id: 'chamomile-tea',
+                    name: 'شاي البابونج المهدئ',
+                    price: 500,
+                    category: 'wellness',
+                    type: 'herbs',
+                    image: 'resources/product-herbs.jpg',
+                    rating: 4.4,
+                    description: 'شاي بابونج عضوي للاسترخاء وتحسين النوم',
+                    ingredients: 'أزهار بابونج مجففة عضوية',
+                    benefits: 'الاسترخاء، تحسين النوم، تهدئة الجهاز الهضمي'
+                },
+                {
+                    id: 'rose-water',
+                    name: 'ماء الورد الطبيعي',
+                    price: 650,
+                    category: 'skincare',
+                    type: 'supplements',
+                    image: 'resources/product-collection.jpg',
+                    rating: 4.6,
+                    description: 'ماء ورد نقي لتوازن البشرة ومنعش',
+                    ingredients: '100% ماء ورد طبيعي',
+                    benefits: 'توازن البشرة، منعش، تقليل المسام'
+                },
+                {
+                    id: 'multivitamin',
+                    name: 'فيتامينات متعددة طبيعية',
+                    price: 2200,
+                    category: 'immunity',
+                    type: 'supplements',
+                    image: 'resources/product-supplements.jpg',
+                    rating: 4.5,
+                    description: 'فيتامينات متعددة من مصادر طبيعية للصحة العامة',
+                    ingredients: 'فيتامينات A، C، D، E، B-complex',
+                    benefits: 'دعم الصحة العامة، طاقة، مناعة'
+                },
+                {
+                    id: 'ginger-root',
+                    name: 'جذر الزنجبيل العضوي',
+                    price: 400,
+                    category: 'immunity',
+                    type: 'herbs',
+                    image: 'resources/product-herbs.jpg',
+                    rating: 4.3,
+                    description: 'زنجبيل طازج مجفف للهضم والمناعة',
+                    ingredients: '100% زنجبيل عضوي مجفف',
+                    benefits: 'تحسين الهضم، مضاد التهابات، رفع المناعة'
+                },
+                {
+                    id: 'mint-oil',
+                    name: 'زيت النعناع المنعش',
+                    price: 950,
+                    category: 'wellness',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.4,
+                    description: 'زيت نعناع أساسي للمنعشة وتحسين التركيز',
+                    ingredients: '100% زيت نعناع أساسي',
+                    benefits: 'منعش، تحسين التركيز، تهدئة الصداع'
+                },
+                {
+                    id: 'propolis',
+                    name: 'بروبوليس طبيعي',
+                    price: 1300,
+                    category: 'immunity',
+                    type: 'supplements',
+                    image: 'resources/product-supplements.jpg',
+                    rating: 4.7,
+                    description: 'بروبوليس طبيعي لمناعة قوية ومضاد للفيروسات',
+                    ingredients: '100% بروبوليس طبيعي',
+                    benefits: 'مناعة قوية، مضاد فيروسات، مضاد بكتيري'
+                },
+                {
+                    id: 'calendula-cream',
+                    name: 'كريم الكاليندولا',
+                    price: 1100,
+                    category: 'skincare',
+                    type: 'supplements',
+                    image: 'resources/product-collection.jpg',
+                    rating: 4.5,
+                    description: 'كريم الكاليندولا لعلاج الجروح والتهابات الجلد',
+                    ingredients: 'زهور الكاليندولا، زبدة الشيا، زيت الزيتون',
+                    benefits: 'علاج الجروح، مضاد التهابات، تهدئة البشرة'
+                },
+                {
+                    id: 'spirulina',
+                    name: 'سبيرولينا عضوية',
+                    price: 1800,
+                    category: 'wellness',
+                    type: 'supplements',
+                    image: 'resources/product-supplements.jpg',
+                    rating: 4.6,
+                    description: 'سبيرولينا عضوية غنية بالبروتين والفيتامينات',
+                    ingredients: '100% سبيرولينا عضوية مجففة',
+                    benefits: 'طاقة، بروتين، مضاد أكسدة، ديتوكس'
+                },
+                {
+                    id: 'clay-mask',
+                    name: 'قناع الطين الطبيعي',
+                    price: 750,
+                    category: 'skincare',
+                    type: 'supplements',
+                    image: 'resources/product-collection.jpg',
+                    rating: 4.4,
+                    description: 'قناع طين طبيعي لتنقية البشرة وإزالة الشوائب',
+                    ingredients: 'طين أخضر، طين أبيض، أعشاب طبيعية',
+                    benefits: 'تنقية البشرة، إزالة الشوائب، تضييق المسام'
+                },
+                {
+                    id: 'echinacea',
+                    name: 'إشنسا للمناعة',
+                    price: 1400,
+                    category: 'immunity',
+                    type: 'herbs',
+                    image: 'resources/product-herbs.jpg',
+                    rating: 4.5,
+                    description: 'إشنسا عضوية لرفع المناعة ومكافحة الأمراض',
+                    ingredients: 'جذور إشنسا عضوية مجففة',
+                    benefits: 'رفع المناعة، مكافحة الأمراض، مضاد فيروسات'
+                },
+                {
+                    id: 'jojoba-oil',
+                    name: 'زيت الجوجوبا الذهبي',
+                    price: 1300,
+                    category: 'skincare',
+                    type: 'oils',
+                    image: 'resources/product-oils.jpg',
+                    rating: 4.7,
+                    description: 'زيت جوجوبا خفيف للعناية بالبشرة الدهنية',
+                    ingredients: '100% زيت جوجوبا عضوي',
+                    benefits: 'توازن البشرة، ترطيب خفيف، مضاد أكسدة'
+                }
+            ];
+            
+            filteredProducts = [...allProducts];
+            renderProducts();
+        }
+
+        function initializeFilters() {
+            // Search input
+            document.getElementById('search-input').addEventListener('input', debounce((e) => {
+                currentFilters.search = e.target.value.toLowerCase();
+                filterProducts();
+            }, 300));
+
+            // Category checkboxes
+            document.querySelectorAll('.category-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    if (e.target.value === 'all') {
+                        if (e.target.checked) {
+                            document.querySelectorAll('.category-filter').forEach(cb => {
+                                if (cb !== e.target) cb.checked = false;
+                            });
+                            currentFilters.categories = ['all'];
+                        } else {
+                            e.target.checked = true;
+                        }
+                    } else {
+                        document.querySelector('.category-filter[value="all"]').checked = false;
+                        currentFilters.categories = Array.from(document.querySelectorAll('.category-filter:checked'))
+                            .map(cb => cb.value)
+                            .filter(val => val !== 'all');
+                        
+                        if (currentFilters.categories.length === 0) {
+                            document.querySelector('.category-filter[value="all"]').checked = true;
+                            currentFilters.categories = ['all'];
+                        }
+                    }
+                    filterProducts();
+                });
+            });
+
+            // Price range
+            const priceRange = document.getElementById('price-range');
+            const priceValue = document.getElementById('price-value');
+            priceRange.addEventListener('input', (e) => {
+                currentFilters.priceRange = parseInt(e.target.value);
+                priceValue.textContent = `${currentFilters.priceRange} دج`;
+                filterProducts();
+            });
+
+            // Product type tags
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilters.productType = e.target.dataset.type;
+                    filterProducts();
+                });
+            });
+
+            // Sort dropdown
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                sortProducts(e.target.value);
+            });
+        }
+
+        function selectCategoryFilter(category) {
+            // Clear all category filters
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            // Select the specific category
+            const categoryCheckbox = document.querySelector(`.category-filter[value="${category}"]`);
+            if (categoryCheckbox) {
+                categoryCheckbox.checked = true;
+                currentFilters.categories = [category];
+                filterProducts();
+            }
+        }
+
+        function filterProducts() {
+            showLoading();
+            
+            setTimeout(() => {
+                filteredProducts = allProducts.filter(product => {
+                    // Category filter
+                    if (!currentFilters.categories.includes('all') && 
+                        !currentFilters.categories.includes(product.category)) {
+                        return false;
+                    }
+                    
+                    // Price filter
+                    if (product.price > currentFilters.priceRange) {
+                        return false;
+                    }
+                    
+                    // Product type filter
+                    if (currentFilters.productType !== 'all' && 
+                        product.type !== currentFilters.productType) {
+                        return false;
+                    }
+                    
+                    // Search filter
+                    if (currentFilters.search && 
+                        !product.name.toLowerCase().includes(currentFilters.search) &&
+                        !product.description.toLowerCase().includes(currentFilters.search)) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
+                
+                renderProducts();
+                hideLoading();
+            }, 500);
+        }
+
+        function sortProducts(sortBy) {
+            switch (sortBy) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                default:
+                    // Featured - keep original order
+                    break;
+            }
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const count = document.getElementById('products-count');
+            const noResults = document.getElementById('no-results');
+            
+            count.textContent = filteredProducts.length;
+            
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card fade-in" data-product-id="${product.id}">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-golden-honey text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${product.rating} ⭐
+                        </div>
+                        <div class="absolute top-4 left-4">
+                            <button onclick="toggleWishlist('${product.id}')" 
+                                    class="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-charcoal-gray hover:text-red-500 transition-colors">
+                                ♡
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-lg font-bold text-forest-green">${product.name}</h3>
+                            <span class="text-xl font-bold text-forest-green">${product.price} دج</span>
+                        </div>
+                        
+                        <p class="text-charcoal-gray text-sm mb-3 leading-relaxed">${product.description}</p>
+                        
+                        <div class="mb-4">
+                            <p class="text-xs text-sage-green font-semibold mb-1">المكونات:</p>
+                            <p class="text-xs text-charcoal-gray">${product.ingredients}</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <p class="text-xs text-sage-green font-semibold mb-1">الفوائد:</p>
+                            <p class="text-xs text-charcoal-gray">${product.benefits}</p>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="addToCart('${product.id}')" 
+                                    class="btn-primary flex-1 py-3 rounded-full text-sm font-semibold">
+                                أضف للسلة
+                            </button>
+                            <button onclick="quickView('${product.id}')" 
+                                    class="btn-secondary px-4 py-3 rounded-full text-sm">
+                                عرض سريع
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Animate new products
+            anime({
+                targets: '.product-card',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                delay: anime.stagger(100),
+                duration: 600,
+                easing: 'easeOutQuart'
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('loading-indicator').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-indicator').classList.add('hidden');
+        }
+
+        function clearFilters() {
+            // Reset all filters
+            currentFilters = {
+                categories: ['all'],
+                priceRange: 5000,
+                productType: 'all',
+                search: ''
+            };
+            
+            // Reset UI
+            document.getElementById('search-input').value = '';
+            document.querySelector('.category-filter[value="all"]').checked = true;
+            document.querySelectorAll('.category-filter:not([value="all"])').forEach(cb => cb.checked = false);
+            document.getElementById('price-range').value = 5000;
+            document.getElementById('price-value').textContent = '5000 دج';
+            document.querySelectorAll('.filter-tag').forEach(tag => tag.classList.remove('active'));
+            document.querySelector('.filter-tag[data-type="all"]').classList.add('active');
+            
+            filterProducts();
+        }
+
+        function quickView(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Create quick view modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="font-display text-3xl font-bold text-forest-green">${product.name}</h2>
+                            <button onclick="this.closest('.fixed').remove()" class="text-charcoal-gray hover:text-sage-green text-3xl">&times;</button>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-80 object-cover rounded-2xl">
+                            </div>
+                            
+                            <div>
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="text-3xl font-bold text-forest-green">${product.price} دج</span>
+                                        <div class="flex items-center">
+                                            <span class="text-golden-honey">⭐ ${product.rating}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="text-charcoal-gray leading-relaxed mb-6">${product.description}</p>
+                                    
+                                    <div class="mb-6">
+                                        <h4 class="font-bold text-forest-green mb-2">المكونات:</h4>
+                                        <p class="text-charcoal-gray">${product.ingredients}</p>
+                                    </div>
+                                    
+                                    <div class="mb-6">
+                                        <h4 class="font-bold text-forest-green mb-2">الفوائد:</h4>
+                                        <p class="text-charcoal-gray">${product.benefits}</p>
+                                    </div>
+                                    
+                                    <button onclick="addToCart('${product.id}'); this.closest('.fixed').remove();" 
+                                            class="btn-primary w-full py-4 rounded-full text-lg font-semibold">
+                                        أضف للسلة - ${product.price} دج
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Animate modal
+            anime({
+                targets: modal,
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutQuart'
+            });
+        }
+
+        // Initialize scroll animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Utility function
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
