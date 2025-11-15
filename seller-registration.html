@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل البائع - ريبيو</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --sage-green: #87A96B;
+            --warm-cream: #F8F6F0;
+            --rich-earth: #8B4513;
+            --soft-mint: #E8F5E8;
+            --golden-honey: #DAA520;
+            --charcoal-gray: #36454F;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #F8F6F0 100%);
+            min-height: 100vh;
+        }
+        
+        .font-display {
+            font-family: 'El Messiri', serif;
+        }
+        
+        .registration-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
+        }
+        
+        .form-input {
+            background: white;
+            border: 2px solid rgba(139, 69, 19, 0.2);
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #DAA520;
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8B4513, #DAA520);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+        }
+        
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--sage-green);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--forest-green), var(--sage-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .font-display {
+            font-family: 'El Messiri', serif;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 py-8">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-sage-green/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index2.html" class="flex items-center">
+                        <h1 class="font-display text-2xl font-bold text-gradient">Ribio</h1>
+                        <span class="ml-2 text-sm text-sage-green">🌿</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index2.html" class="nav-link text-charcoal-gray hover:text-sage-green">الرئيسية</a>
+                    <a href="products.html" class="nav-link text-charcoal-gray hover:text-sage-green">المنتجات</a>
+                    <a href="recipes.html" class="nav-link text-charcoal-gray hover:text-sage-green">الوصفات</a>
+                    <a href="education.html" class="nav-link text-charcoal-gray hover:text-sage-green">التعليم</a>
+                </div>
+                
+                <!-- Cart & Role Switch -->
+                <div class="flex items-center space-x-4">
+                    <!-- Role Switch Button -->
+                    <button onclick="switchRole()" id="role-switch-btn" class="text-charcoal-gray hover:text-sage-green transition-colors text-sm font-medium px-3 py-2 rounded-full bg-soft-mint hover:bg-sage-green hover:text-white hidden md:block" title="التبديل إلى وضع المشتري">
+                        <span id="role-switch-text">🛒 تصفح كمشتري</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-charcoal-gray hover:text-sage-green">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold text-gradient">Ribio</h3>
+                <button onclick="toggleMobileMenu()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
+            </div>
+        </div>
+        
+        <div class="p-6">
+            <div class="space-y-6">
+                <a href="index2.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">الرئيسية</a>
+                <a href="products.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">المنتجات</a>
+                <a href="recipes.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">الوصفات</a>
+                <a href="education.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">التعليم</a>
+                <button onclick="switchRole(); toggleMobileMenu();" class="w-full text-right text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">
+                    <span id="mobile-role-switch-text">🛒 تصفح كمشتري</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for mobile menu -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden" onclick="toggleMobileMenu()"></div>
+    
+    <div class="max-w-4xl w-full mt-20">
+        <!-- Header -->
+        <div class="text-center mb-8 fade-in">
+            <div class="flex items-center justify-center mb-6">
+                <button onclick="window.location.href='welcome.html'" class="text-white hover:text-[#E8F5E8] transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h1 class="font-display text-4xl md:text-5xl font-bold text-white mx-4">
+                    انضم كبائع
+                </h1>
+            </div>
+            <p class="text-white/90 text-lg">املأ المعلومات لبدء رحلتك كبائع في ريبيو</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="flex justify-center mb-12 fade-in" style="animation-delay: 0.2s;">
+            <div class="flex items-center space-x-8">
+                <div class="flex items-center">
+                    <div class="progress-step active">1</div>
+                    <span class="mr-2 font-semibold text-white">المعلومات الأساسية</span>
+                </div>
+                <div class="w-12 h-1 bg-white/30"></div>
+                <div class="flex items-center">
+                    <div class="progress-step">2</div>
+                    <span class="mr-2 font-semibold text-white/70">معلومات المتجر</span>
+                </div>
+                <div class="w-12 h-1 bg-white/30"></div>
+                <div class="flex items-center">
+                    <div class="progress-step">3</div>
+                    <span class="mr-2 font-semibold text-white/70">المنتجات</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Registration Form -->
+        <div class="registration-card p-8 md:p-12 fade-in" style="animation-delay: 0.4s;">
+            <form id="sellerForm" onsubmit="submitForm(event)">
+                <!-- Personal Information -->
+                <div class="mb-8">
+                    <h2 class="font-display text-2xl font-bold text-[#8B4513] mb-6">المعلومات الشخصية</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">الاسم الكامل</label>
+                            <input type="text" required class="form-input w-full" placeholder="أدخل اسمك الكامل">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">البريد الإلكتروني</label>
+                            <input type="email" required class="form-input w-full" placeholder="example@email.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">رقم الهاتف</label>
+                            <input type="tel" required class="form-input w-full" placeholder="+213 XXX XXX XXX">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">المدينة</label>
+                            <select required class="form-input w-full">
+                                <option value="">اختر مدينتك</option>
+                                <option value="algiers">الجزائر العاصمة</option>
+                                <option value="oran">وهران</option>
+                                <option value="constantine">قسنطينة</option>
+                                <option value="annaba">عنابة</option>
+                                <option value="batna">باتنة</option>
+                                <option value="blida">البليدة</option>
+                                <option value="setif">سطيف</option>
+                                <option value="other">مدينة أخرى</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Store Information -->
+                <div class="mb-8">
+                    <h2 class="font-display text-2xl font-bold text-[#8B4513] mb-6">معلومات المتجر</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-[#36454F] font-semibold mb-2">اسم المتجر</label>
+                            <input type="text" required class="form-input w-full" placeholder="اسم متجرك">
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-[#36454F] font-semibold mb-2">وصف المتجر</label>
+                            <textarea required class="form-input w-full h-32" placeholder="صف متجرك ونوع المنتجات التي تقدمها"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">نوع المنتجات</label>
+                            <select required class="form-input w-full" multiple size="4">
+                                <option value="oils">زيوت طبيعية</option>
+                                <option value="herbs">أعشاب طبية</option>
+                                <option value="honey">عسل طبيعي</option>
+                                <option value="soap">صابون طبيعي</option>
+                                <option value="supplements">مكملات غذائية</option>
+                                <option value="cosmetics">مستحضرات تجميل طبيعية</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">سنوات الخبرة</label>
+                            <select required class="form-input w-full">
+                                <option value="">اختر سنوات الخبرة</option>
+                                <option value="0-1">أقل من سنة</option>
+                                <option value="1-3">1-3 سنوات</option>
+                                <option value="3-5">3-5 سنوات</option>
+                                <option value="5+">أكثر من 5 سنوات</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Business Information -->
+                <div class="mb-8">
+                    <h2 class="font-display text-2xl font-bold text-[#8B4513] mb-6">المعلومات التجارية</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">رقم السجل التجاري (اختياري)</label>
+                            <input type="text" class="form-input w-full" placeholder="رقم السجل التجاري">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[#36454F] font-semibold mb-2">طريقة الشحن</label>
+                            <select required class="form-input w-full">
+                                <option value="">اختر طريقة الشحن</option>
+                                <option value="delivery">توصيل منزلي</option>
+                                <option value="pickup">استلام من المتجر</option>
+                                <option value="both">الطريقتان معاً</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Terms and Submit -->
+                <div class="mb-8">
+                    <label class="flex items-start">
+                        <input type="checkbox" required class="mt-1 ml-3">
+                        <span class="text-[#36454F] text-sm">
+                            أوافق على <a href="#" class="text-[#8B4513] hover:underline">شروط الخدمة</a> و <a href="#" class="text-[#8B4513] hover:underline">سياسة الخصوصية</a> لريبيو
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="flex gap-4">
+                    <button type="submit" class="btn-primary flex-1 py-4 rounded-2xl font-bold text-lg">
+                        إنشاء حساب البائع
+                    </button>
+                    <button type="button" onclick="window.location.href='welcome.html'" class="bg-gray-200 text-[#36454F] flex-1 py-4 rounded-2xl font-bold text-lg hover:bg-gray-300 transition-colors">
+                        رجوع
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // تعيين الدور كبائع عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('userRole', 'seller');
+            updateRoleSwitchButton();
+        });
+        
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // أنيميشن للتأكيد
+            anime({
+                targets: '#sellerForm',
+                scale: [1, 0.98, 1],
+                duration: 300,
+                easing: 'easeInOutQuad'
+            });
+            
+            // هنا يمكنك إضافة كود إرسال البيانات للخادم
+            setTimeout(() => {
+                alert('تم إرسال طلبك بنجاح! سيتم مراجعته والاتصال بك خلال 24 ساعة.');
+                window.location.href = 'seller-dashboard.html'; // يمكنك إنشاء هذه الصفحة لاحقاً
+            }, 1000);
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

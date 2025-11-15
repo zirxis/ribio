@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ribio - المنصة الجزائرية للمنتجات الطبيعية</title>
+    <meta name="description" content="اكتشف عالم المنتجات الطبيعية مع ريبيو - زيوت، أعشاب، مكملات، عسل، صابون طبيعي ووصفات للعناية بالبشرة والشعر والصحة">
+    <meta name="keywords" content="منتجات طبيعية، زيوت أساسية، أعشاب طبية، عسل طبيعي، صابون عضوي، العناية بالبشرة، العناية بالشعر، صحة طبيعية، الجزائر">
+    <meta name="author" content="Ribio">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2D5016">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ribio.dz/">
+    <meta property="og:title" content="Ribio - المنصة الجزائرية للمنتجات الطبيعية">
+    <meta property="og:description" content="اكتشف عالم المنتجات الطبيعية مع ريبيو - زيوت، أعشاب، مكملات، عسل، صابون طبيعي">
+    <meta property="og:image" content="resources/logo.jpg">
+    <meta property="og:locale" content="ar_DZ">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ribio.dz/">
+    <meta property="twitter:title" content="Ribio - المنصة الجزائرية للمنتجات الطبيعية">
+    <meta property="twitter:description" content="اكتشف عالم المنتجات الطبيعية مع ريبيو">
+    <meta property="twitter:image" content="resources/logo.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Ribio",
+        "url": "https://ribio.dz",
+        "logo": "https://ribio.dz/resources/logo.jpg",
+        "description": "منصة جزائرية للمنتجات الطبيعية والعناية الصحية",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "DZ"
+        },
+        "sameAs": [
+            "https://www.facebook.com/ribio",
+            "https://www.twitter.com/ribio",
+            "https://www.instagram.com/ribio"
+        ]
+    }
+	function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // إشعار بسيط
+    showNotification(newTheme === 'dark' ? 'تم تفعيل الوضع الداكن' : 'تم تفعيل الوضع الفاتح', 'success');
+    
+    // أنيميشن إضافية
+    const toggleBtn = document.querySelector('.theme-toggle');
+    if (toggleBtn) {
+        anime({
+            targets: toggleBtn,
+            scale: [1, 1.1, 1],
+            duration: 300,
+            easing: 'easeOutElastic(1, .8)'
+        });
+    }
+}
+    </script>
+    
+    <!-- Fonts with display=swap for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    <link href="https://unpkg.com/splitting@1.0.6/dist/splitting.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --sage-green: #3a700e;
+            --warm-cream: #42c23d;
+            --rich-earth: #183508;
+            --soft-mint: #003100;
+            --golden-honey: #ffffff;
+            --charcoal-gray: #36454F;
+            --light-green: #A8C88A;
+            --dark-green: #1A3A0E;
+            
+            /* Light Mode Colors (Default) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #0a1607;
+            --bg-card: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-primary: #36454F;
+            --text-secondary: #2D5016;
+            --border-color: rgba(135, 169, 107, 0.2);
+            --shadow-color: rgba(45, 80, 22, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            /* Dark Mode Colors */
+            --bg-primary: #0a1607;
+            --bg-secondary: #1a2e0f;
+            --bg-card: #1a2e0f;
+            --bg-glass: rgba(26, 46, 15, 0.8);
+            --text-primary: #E8F5E8;
+            --text-secondary: #87A96B;
+            --border-color: rgba(135, 169, 107, 0.3);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+
+        
+        body {
+            font-family: 'Tajawal', 'Inter', sans-serif;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            position: relative;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(177, 187, 170, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(45, 80, 22, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.08) 0%, rgba(135, 169, 107, 0.12) 50%, rgba(218, 165, 32, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(135, 169, 107, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(45, 80, 22, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 10s ease-in-out infinite reverse;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(135, 169, 107, 0.1), rgba(45, 80, 22, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: inherit;
+            z-index: 0;
+        }
+        
+        .card-hover:hover::before {
+            opacity: 1;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(45, 80, 22, 0.2), 0 0 0 1px rgba(135, 169, 107, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--forest-green) 0%, var(--dark-green) 100%);
+            color: var(--warm-cream);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--sage-green) 0%, var(--forest-green) 100%);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--sage-green);
+            color: var(--sage-green);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--sage-green);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: 0;
+        }
+        
+        .btn-secondary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-secondary:hover {
+            color: var(--warm-cream);
+            border-color: var(--forest-green);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(135, 169, 107, 0.3);
+        }
+        
+        .btn-secondary span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--forest-green) 0%, var(--sage-green) 50%, var(--golden-honey) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(45, 80, 22, 0.2));
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-25px) rotate(-1deg); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(135, 169, 107, 0.3);
+            box-shadow: 0 20px 60px rgba(45, 80, 22, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--sage-green) 0%, var(--forest-green) 50%, var(--golden-honey) 100%);
+            background-size: 200% 100%;
+            height: 6px;
+            border-radius: 3px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: progress-shimmer 2s ease infinite;
+            box-shadow: 0 2px 10px rgba(135, 169, 107, 0.4);
+        }
+        
+        @keyframes progress-shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(45, 80, 22, 0.12), 0 0 0 1px rgba(135, 169, 107, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sage-green), var(--forest-green), var(--golden-honey));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-16px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(45, 80, 22, 0.25), 0 0 0 1px rgba(135, 169, 107, 0.2);
+        }
+        
+        .product-card img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .category-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--soft-mint) 0%, var(--sage-green) 50%, var(--light-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(135, 169, 107, 0.3), inset 0 2px 10px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .category-icon:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+        
+        .category-icon:hover {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 15px 35px rgba(135, 169, 107, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.6);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 246, 240, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 40px rgba(45, 80, 22, 0.15), 0 0 0 1px rgba(135, 169, 107, 0.1);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.2), 0 0 0 1px rgba(135, 169, 107, 0.2);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--sage-green), var(--forest-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: absolute;
+            top: -15px;
+            right: 25px;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.3;
+            line-height: 1;
+        }
+        
+        .testimonial-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(135, 169, 107, 0.1) 0%, transparent 70%);
+            border-radius: 0 28px 0 0;
+        }
+        
+        #particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .content-overlay {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sage-green), var(--forest-green));
+            border-radius: 2px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(135, 169, 107, 0.4);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--forest-green);
+        }
+        
+        .cart-badge {
+            background-color: var(--golden-honey);
+            color: white;
+            font-size: 0.75rem;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            left: -8px;
+        }
+		.logo-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all 0.5s ease;
+}
+
+.logo-3d img {
+    transform: rotateX(10deg) rotateY(-5deg);
+    box-shadow: 
+        15px 15px 30px rgba(45, 80, 22, 0.3),
+        -5px -5px 20px rgba(135, 169, 107, 0.2);
+    border-radius: 12px;
+    transition: all 0.5s ease;
+}
+
+.logo-3d:hover img {
+    transform: rotateX(5deg) rotateY(5deg) translateZ(20px);
+    box-shadow: 
+        20px 20px 40px rgba(45, 80, 22, 0.4),
+        -10px -10px 30px rgba(135, 169, 107, 0.3);
+}
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+            position: relative;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin: -12px 0 0 -12px;
+            border: 3px solid rgba(135, 169, 107, 0.3);
+            border-top-color: var(--sage-green);
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Decorative Elements */
+        .decorative-blob {
+            position: absolute;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: linear-gradient(135deg, rgba(135, 169, 107, 0.1), rgba(45, 80, 22, 0.1));
+            animation: blob 20s ease-in-out infinite;
+            filter: blur(40px);
+            z-index: 0;
+        }
+        
+        @keyframes blob {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: translate(0, 0) rotate(0deg); }
+            25% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: translate(20px, -20px) rotate(90deg); }
+            50% { border-radius: 30% 70% 70% 30% / 70% 30% 30% 70%; transform: translate(-20px, 20px) rotate(180deg); }
+            75% { border-radius: 70% 30% 30% 70% / 30% 70% 70% 30%; transform: translate(10px, 10px) rotate(270deg); }
+        }
+        
+        /* Glassmorphism Effect */
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Dark Mode Toggle Button */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            background: var(--sage-green);
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(135, 169, 107, 0.4);
+        }
+        
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="dark"] .theme-toggle-slider {
+            transform: translateX(28px);
+            background: var(--golden-honey);
+        }
+        
+        .theme-toggle-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        
+        [data-theme="dark"] .theme-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Smooth transitions for all elements */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Performance: Disable transitions for reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .scroll-to-top,
+            .theme-toggle,
+            .wishlist-btn,
+            nav,
+            footer,
+            .search-modal,
+            #cart-sidebar,
+            #mobile-menu {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+        
+        /* Dark mode specific adjustments */
+        [data-theme="dark"] .hero-bg {
+            background: linear-gradient(135deg, rgba(26, 46, 15, 0.5) 0%, rgba(10, 22, 7, 0.8) 100%);
+        }
+        
+        [data-theme="dark"] .bg-white {
+            background-color: var(--bg-card) !important;
+        }
+        
+        [data-theme="dark"] .text-charcoal-gray {
+            color: var(--text-primary) !important;
+        }
+        
+        [data-theme="dark"] .text-forest-green {
+            color: var(--sage-green) !important;
+        }
+        
+        [data-theme="dark"] .bg-soft-mint {
+            background-color: rgba(26, 46, 15, 0.5) !important;
+        }
+        
+        [data-theme="dark"] .cart-sidebar,
+        [data-theme="dark"] #mobile-menu {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] footer {
+            background: var(--rich-earth) !important;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--sage-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.4);
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .scroll-to-top:hover svg {
+            transform: translateY(-3px);
+        }
+        
+        /* Skeleton Loader */
+        .skeleton {
+            background: linear-gradient(90deg, 
+                var(--bg-card) 0%, 
+                rgba(135, 169, 107, 0.1) 50%, 
+                var(--bg-card) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Enhanced Search Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .search-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .search-modal-content {
+            background: var(--bg-card);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .search-modal.active .search-modal-content {
+            transform: translateY(0);
+        }
+        
+        /* Wishlist Button */
+        .wishlist-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            z-index: 10;
+        }
+        
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .wishlist-btn.active {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .wishlist-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Keyboard Shortcuts Hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            z-index: 999;
+            display: none;
+        }
+        
+        .keyboard-hint kbd {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .keyboard-hint.visible {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Improved Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #mobile-menu a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        #mobile-menu a::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--sage-green);
+            transition: width 0.3s ease;
+        }
+        
+        #mobile-menu a:hover::before {
+            width: 4px;
+        }
+        
+        #mobile-menu a:hover {
+            padding-right: 1rem;
+            color: var(--sage-green);
+        }
+        
+        /* Dark Mode Card Adjustments */
+        [data-theme="dark"] .product-card,
+        [data-theme="dark"] .testimonial-card,
+        [data-theme="dark"] .quiz-card {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .btn-secondary {
+            background: rgba(26, 46, 15, 0.8);
+            border-color: var(--sage-green);
+            color: var(--sage-green);
+        }
+        
+        [data-theme="dark"] .btn-secondary:hover {
+            background: var(--sage-green);
+            color: var(--bg-primary);
+        }
+        
+        [data-theme="dark"] input,
+        [data-theme="dark"] select,
+        [data-theme="dark"] textarea {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .section-bg::before,
+        [data-theme="dark"] .section-bg::after {
+            opacity: 0.3;
+        }
+        
+        /* Enhanced Section Backgrounds */
+        .section-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(135, 169, 107, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .section-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(45, 80, 22, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        /* Focus States for Accessibility */
+        *:focus-visible {
+            outline: 2px solid var(--sage-green);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to main content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: var(--forest-green);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            .hero-section p {
+                font-size: 1.1rem !important;
+            }
+            
+            .btn-mobile {
+                width: 100% !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* Improve touch targets */
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+/* Enhanced Logo Styles */
+.logo-container {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-image {
+    filter: brightness(1) contrast(1.1);
+    transition: all 0.3s ease;
+}
+
+.logo-image:hover {
+    filter: brightness(1.1) contrast(1.2);
+}
+
+/* Logo animations */
+@keyframes logoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.logo-pulse {
+    animation: logoPulse 3s ease-in-out infinite;
+}
+
+/* Dark mode logo support */
+@media (prefers-color-scheme: dark) {
+    .logo-image {
+        filter: brightness(1.2) contrast(0.9);
+    }
+}
+
+/* Mobile logo adjustments */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 1.1rem !important;
+    }
+    
+    .logo-tagline {
+        display: none !important;
+    }
+}
+/* تصميم متناسق لأيقونة الوضع الداكن */
+.theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(135, 169, 107, 0.1);
+    border: 2px solid rgba(135, 169, 107, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+    background: rgba(135, 169, 107, 0.2);
+    border-color: var(--sage-green);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.15);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    font-size: 18px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(0.3);
+}
+
+[data-theme="dark"] .theme-icon {
+    transform: rotate(180deg) scale(1.1);
+    filter: grayscale(0) brightness(1.2);
+}
+
+/* تحسين التصميم في الوضع الداكن */
+[data-theme="dark"] .theme-toggle {
+    background: rgba(135, 169, 107, 0.15);
+    border-color: rgba(135, 169, 107, 0.4);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: rgba(135, 169, 107, 0.25);
+    box-shadow: 0 4px 12px rgba(135, 169, 107, 0.2);
+}
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">انتقل إلى المحتوى الرئيسي</a>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-sage-green/20 shadow-sm" role="navigation" aria-label="القائمة الرئيسية">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+               <!-- Enhanced 3D Logo -->
+<div class="flex items-center">
+    <a href="index.html" class="flex items-center space-x-2 space-x-reverse hover:opacity-80 transition-opacity logo-3d">
+        <!-- الشعار الكامل -->
+        <img src="resources/logo.jpg" alt="Ribio - المنصة الجزائرية للمنتجات الطبيعية" 
+             class="h-10 w-auto hidden md:block">
+        
+        <!-- الأيقونة للشاشات الصغيرة -->
+        <img src="resources/logo.jpg" alt="Ribio" 
+             class="h-8 w-auto md:hidden">
+        
+        <!-- النص البديل -->
+        <div class="flex flex-col justify-center">
+            <h1 class="font-display text-xl font-bold text-gradient leading-tight">Ribio</h1>
+            <span class="text-xs text-sage-green font-medium hidden lg:block">الطبيعة لجمالك</span>
+        </div>
+    </a>
+</div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-forest-green font-medium">الرئيسية</a>
+                    <a href="products.html" class="nav-link text-charcoal-gray hover:text-sage-green">المنتجات</a>
+                    <a href="recipes.html" class="nav-link text-charcoal-gray hover:text-sage-green">الوصفات</a>
+                    <a href="education.html" class="nav-link text-charcoal-gray hover:text-sage-green">التعليم</a>
+                </div>
+                
+                <!-- Cart & Search -->
+                <div class="flex items-center space-x-4">
+                    <!-- Role Switch Button -->
+                    <button onclick="switchRole()" id="role-switch-btn" class="text-charcoal-gray hover:text-sage-green transition-colors text-sm font-medium px-3 py-2 rounded-full bg-soft-mint hover:bg-sage-green hover:text-white hidden md:block" title="تبديل الدور">
+                        <span id="role-switch-text">👤 بائع؟</span>
+                    </button>
+                    
+                   <button class="theme-toggle" 
+        onclick="toggleTheme()"
+        aria-label="تبديل الوضع الداكن"
+        title="تبديل الوضع الداكن">
+    <div class="theme-toggle-container">
+        <div class="theme-icon">🌙</div>
+    </div>
+</button>
+                    
+                    <button class="text-charcoal-gray hover:text-sage-green transition-colors dark:text-warm-cream"
+                            onclick="openSearchModal()"
+                            aria-label="البحث في الموقع"
+                            title="البحث (Ctrl+K)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                    <button class="relative text-charcoal-gray hover:text-sage-green transition-colors dark:text-warm-cream" onclick="toggleCart()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9"></path>
+                        </svg>
+                        <span id="cart-badge" class="cart-badge hidden">0</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+<button class="md:hidden text-charcoal-gray hover:text-sage-green" onclick="toggleMobileMenu()">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+	<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+    <div class="p-6 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+            <h3 class="font-display text-xl font-bold text-gradient">Ribio</h3>
+            <button onclick="toggleMobileMenu()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
+        </div>
+    </div>
+    
+    <div class="p-6">
+        <div class="space-y-6">
+            <a href="index2.html" class="block text-forest-green font-medium text-lg py-2 border-b border-gray-100">الرئيسية</a>
+            <a href="products.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">المنتجات</a>
+            <a href="recipes.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">الوصفات</a>
+            <a href="education.html" class="block text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">التعليم</a>
+            <button onclick="switchRole(); toggleMobileMenu();" class="w-full text-right text-charcoal-gray hover:text-sage-green text-lg py-2 border-b border-gray-100">
+                <span id="mobile-role-switch-text">👤 بائع؟</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for mobile menu -->
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden" onclick="toggleMobileMenu()"></div>
+
+<!-- Page Header -->
+<section class="pt-24 pb-12 bg-gradient-to-br from-sage-green/10 to-forest-green/10">
+
+    <!-- Hero Section -->
+    <section id="main-content" class="relative min-h-screen flex items-center justify-center hero-bg overflow-hidden" aria-label="القسم الرئيسي">
+        <div id="particles-container"></div>
+        
+        <div class="content-overlay max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="text-center lg:text-right">
+                    <h1 class="font-display text-5xl lg:text-7xl font-bold mb-6">
+                        <span class="text-gradient">الطبيعة</span>
+                        <br>
+                        <span id="typed-text" class="text-forest-green"></span>
+                    </h1>
+                    
+                    <p class="text-xl lg:text-2xl text-charcoal-gray mb-8 leading-relaxed">
+                        اكتشف قوة الطبيعة مع منتجاتنا العضوية المصنوعة يدوياً. زيوت، أعشاب، وصفات طبيعية لحياة صحية أفضل.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="startQuiz()" 
+                                class="btn-primary px-8 py-4 rounded-full text-lg font-semibold"
+                                aria-label="ابدأ اختبار الاحتياجات الصحية">
+                            اختبر احتياجاتك 💚
+                        </button>
+                        <a href="products.html" 
+                           class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold"
+                           aria-label="تصفح المنتجات الطبيعية">
+                            <span>تسوق الآن</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="relative">
+                    <div class="floating">
+                        <img src="resources/hero-nature.jpg" 
+                             alt="منتجات طبيعية للعناية بالصحة والجمال" 
+                             loading="eager"
+                             decoding="async"
+                             class="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-2xl"
+                             width="800"
+                             height="500">
+                    </div>
+                    <div class="absolute -top-4 -left-4 w-20 h-20 bg-sage-green/20 rounded-full floating" style="animation-delay: -2s;" aria-hidden="true"></div>
+                    <div class="absolute -bottom-6 -right-6 w-16 h-16 bg-forest-green/20 rounded-full floating" style="animation-delay: -4s;" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wellness Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="quiz-card rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-display text-3xl font-bold text-forest-green">اختبار الاحتياجات الصحية</h2>
+                <button onclick="closeQuiz()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm text-charcoal-gray mb-2">
+                    <span>ال progress</span>
+                    <span id="quiz-progress-text">1 من 6</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="quiz-progress-bar" class="progress-bar w-0"></div>
+                </div>
+            </div>
+            
+            <!-- Quiz Questions -->
+            <div id="quiz-content">
+                <!-- Questions will be dynamically loaded here -->
+            </div>
+            
+            <!-- Quiz Results -->
+            <div id="quiz-results" class="hidden">
+                <h3 class="font-display text-2xl font-bold text-forest-green mb-4">نتائج التحليل الخاصة بك</h3>
+                <div id="results-content">
+                    <!-- Results will be displayed here -->
+                </div>
+                <div class="mt-6 flex gap-4">
+                    <button onclick="viewRecommendations()" class="btn-primary px-6 py-3 rounded-full">
+                        عرض التوصيات
+                    </button>
+                    <button onclick="closeQuiz()" class="btn-secondary px-6 py-3 rounded-full">
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <section class="py-20 bg-white section-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in relative z-10">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gradient mb-6">
+                    منتجاتنا المميزة
+                </h2>
+                <p class="text-xl text-charcoal-gray max-w-3xl mx-auto leading-relaxed">
+                    منتجات طبيعية مختارة بعناية لدعم صحتك وجمالك بأفضل ما تقدمه الطبيعة
+                </p>
+                <div class="mt-6 flex justify-center">
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-sage-green to-transparent rounded-full"></div>
+                </div>
+            </div>
+            
+            <!-- Product Carousel -->
+            <div class="splide fade-in" id="product-carousel">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <div class="product-card mx-4">
+                                <div class="relative">
+                                    <img src="resources/product-oils.jpg" 
+                                         alt="مجموعة الزيوت الأساسية النقية للعناية بالبشرة والشعر" 
+                                         loading="lazy"
+                                         decoding="async"
+                                         class="w-full h-64 object-cover"
+                                         width="400"
+                                         height="256">
+                                    <div class="absolute top-4 right-4 bg-golden-honey text-white px-3 py-1 rounded-full text-sm font-semibold" aria-label="الأكثر مبيعاً">
+                                        الأكثر مبيعاً
+                                    </div>
+                                    <button class="wishlist-btn" onclick="toggleWishlist('oils-set')" aria-label="إضافة للمفضلة">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">مجموعة الزيوت الأساسية</h3>
+                                    <p class="text-charcoal-gray mb-4">5 زيوت أساسية نقية للعناية بالبشرة والشعر</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-2xl font-bold text-forest-green">2,500 دج</span>
+                                        <button onclick="addToCart('oils-set')" class="btn-primary px-4 py-2 rounded-full text-sm">
+                                            أضف للسلة
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="product-card mx-4">
+                                <div class="relative">
+                                    <img src="resources/product-soap.jpg" alt="صابون عضوي handmade" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-sage-green text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        عضوي 100%
+                                    </div>
+                                    <button class="wishlist-btn" onclick="toggleWishlist('herbal-soap')" aria-label="إضافة للمفضلة">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">صابون الأعشاب الطبيعي</h3>
+                                    <p class="text-charcoal-gray mb-4">صابون مصنوع يدوياً بزيوت طبيعية وأعشاب</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-2xl font-bold text-forest-green">450 دج</span>
+                                        <button onclick="addToCart('herbal-soap')" class="btn-primary px-4 py-2 rounded-full text-sm">
+                                            أضف للسلة
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="product-card mx-4">
+                                <div class="relative">
+                                    <img src="resources/product-honey.jpg" alt="عسل طبيعي خام" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-rich-earth text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        خام ونقي
+                                    </div>
+                                    <button class="wishlist-btn" onclick="toggleWishlist('raw-honey')" aria-label="إضافة للمفضلة">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">عسل طبيعي خام</h3>
+                                    <p class="text-charcoal-gray mb-4">عسل نقي من الجبال للمناعة والصحة</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-2xl font-bold text-forest-green">1,800 دج</span>
+                                        <button onclick="addToCart('raw-honey')" class="btn-primary px-4 py-2 rounded-full text-sm">
+                                            أضف للسلة
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="product-card mx-4">
+                                <div class="relative">
+                                    <img src="resources/product-herbs.jpg" alt="أعشاب طبية مجففة" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-forest-green text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        طب بديل
+                                    </div>
+                                    <button class="wishlist-btn" onclick="toggleWishlist('herbs-collection')" aria-label="إضافة للمفضلة">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">مجموعة الأعشاب الطبية</h3>
+                                    <p class="text-charcoal-gray mb-4">10 أعشاب طبية مجففة للشاي والعلاج</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-2xl font-bold text-forest-green">1,200 دج</span>
+                                        <button onclick="addToCart('herbs-collection')" class="btn-primary px-4 py-2 rounded-full text-sm">
+                                            أضف للسلة
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wellness Categories -->
+    <section class="py-20 hero-bg relative">
+        <div class="decorative-blob w-96 h-96 top-10 left-10 opacity-50"></div>
+        <div class="decorative-blob w-80 h-80 bottom-20 right-20 opacity-40" style="animation-delay: -5s;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in relative z-10">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gradient mb-6">
+                    اهتماماتك الصحية
+                </h2>
+                <p class="text-xl text-charcoal-gray max-w-3xl mx-auto leading-relaxed">
+                    اختر مجال اهتمامك وسنساعدك في العثور على أفضل المنتجات والوصفات المناسبة لك
+                </p>
+                <div class="mt-6 flex justify-center">
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-sage-green to-transparent rounded-full"></div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="category-card text-center fade-in card-hover cursor-pointer" onclick="selectCategory('skincare')">
+                    <div class="category-icon mx-auto mb-4">✨</div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">العناية بالبشرة</h3>
+                    <p class="text-charcoal-gray">منتجات طبيعية لتفتيح وترطيب البشرة</p>
+                </div>
+                
+                <div class="category-card text-center fade-in card-hover cursor-pointer" onclick="selectCategory('haircare')" style="animation-delay: 0.2s;">
+                    <div class="category-icon mx-auto mb-4">🌿</div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">العناية بالشعر</h3>
+                    <p class="text-charcoal-gray">زيوت وأعشاب لتقوية الشعر ومنع تساقطه</p>
+                </div>
+                
+                <div class="category-card text-center fade-in card-hover cursor-pointer" onclick="selectCategory('immunity')" style="animation-delay: 0.4s;">
+                    <div class="category-icon mx-auto mb-4">💪</div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">المناعة والصحة</h3>
+                    <p class="text-charcoal-gray">مكملات طبيعية لرفع المناعة والطاقة</p>
+                </div>
+                
+                <div class="category-card text-center fade-in card-hover cursor-pointer" onclick="selectCategory('wellness')" style="animation-delay: 0.6s;">
+                    <div class="category-icon mx-auto mb-4">🧘</div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">العافية العامة</h3>
+                    <p class="text-charcoal-gray">نمط حياة صحي ومنتجات للاسترخاء</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="py-20 bg-white section-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in relative z-10">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gradient mb-6">
+                    لماذا تختار ريبيو؟
+                </h2>
+                <div class="mt-6 flex justify-center">
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-sage-green to-transparent rounded-full"></div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center fade-in">
+                    <div class="w-20 h-20 bg-soft-mint rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">🌱</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">100% طبيعي</h3>
+                    <p class="text-charcoal-gray">جميع منتجاتنا عضوية ومصنوعة يدوياً من أفضل المكونات الطبيعية</p>
+                </div>
+                
+                <div class="text-center fade-in" style="animation-delay: 0.2s;">
+                    <div class="w-20 h-20 bg-soft-mint rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">🔬</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">مصدق عليه</h3>
+                    <p class="text-charcoal-gray">جميع المنتجات تم اختبارها واعتمادها من خبراء التغذية والطب البديل</p>
+                </div>
+                
+                <div class="text-center fade-in" style="animation-delay: 0.4s;">
+                    <div class="w-20 h-20 bg-soft-mint rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">🚚</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">توصيل سريع</h3>
+                    <p class="text-charcoal-gray">نوصل طلباتك إلى جميع أنحاء الجزائر في أسرع وقت ممكن</p>
+                </div>
+            </div>
+            
+            <!-- Testimonials -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="testimonial-card fade-in">
+                    <p class="text-charcoal-gray mb-4 leading-relaxed">
+                        منتجات ريبيو غيرت حياتي! بعد 3 أشهر من استخدام زيوتهم الطبيعية، بشرتي أصبحت أكثر إشراقاً وصحية. أنصح الجميع بتجربتها.
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-sage-green rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            س
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-forest-green">سارة محمد</h4>
+                            <p class="text-charcoal-gray text-sm">الجزائر العاصمة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in" style="animation-delay: 0.2s;">
+                    <p class="text-charcoal-gray mb-4 leading-relaxed">
+                        صابونهم العضوي رائع! رائحته جميلة وطبيعية، ويناسب بشرتي الحساسة. والتوصيل كان سريع جداً.
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-forest-green rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            أ
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-forest-green">أحمد بن علي</h4>
+                            <p class="text-charcoal-gray text-sm">وهران</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 hero-bg relative overflow-hidden">
+        <div class="decorative-blob w-72 h-72 top-1/2 left-1/4 opacity-30" style="animation-delay: -3s;"></div>
+        <div class="decorative-blob w-96 h-96 bottom-10 right-1/4 opacity-25" style="animation-delay: -7s;"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gradient mb-6 relative z-10">
+                    ابقَ على تواصل
+                </h2>
+                <p class="text-xl text-charcoal-gray mb-8 leading-relaxed relative z-10">
+                    اشترك في نشرتنا البريدية واحصل على 15% خصم على أول طلب لك، بالإضافة إلى نصائح الصحة والجمال أولاً بأول.
+                </p>
+                <div class="mt-6 flex justify-center mb-8 relative z-10">
+                    <div class="w-24 h-1 bg-gradient-to-r from-transparent via-sage-green to-transparent rounded-full"></div>
+                </div>
+                
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" 
+                      onsubmit="handleNewsletterSubmit(event)"
+                      aria-label="نموذج الاشتراك في النشرة البريدية">
+                    <input type="email" 
+                           id="newsletter-email"
+                           placeholder="أدخل بريدك الإلكتروني" 
+                           required
+                           aria-required="true"
+                           aria-label="البريد الإلكتروني"
+                           class="flex-1 px-6 py-4 rounded-full border-2 border-sage-green/30 bg-white/80 backdrop-blur-sm focus:border-sage-green focus:outline-none focus:ring-2 focus:ring-sage-green/20 focus:bg-white transition-all duration-300 shadow-sm relative z-10">
+                    <button type="submit" 
+                            class="btn-primary px-8 py-4 rounded-full font-semibold relative z-10"
+                            aria-label="اشترك في النشرة البريدية">
+                        <span class="relative z-10">اشترك الآن</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest-green text-warm-cream py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="font-display text-3xl font-bold mb-4">Ribio</h3>
+                <p class="text-lg mb-6">منصتك الجزائرية للمنتجات الطبيعية والعناية الصحية</p>
+                
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://www.facebook.com/share/17dAJrZy3c/" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="text-warm-cream hover:text-sage-green transition-colors"
+                       aria-label="تابعنا على فيسبوك">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="http://tiktok.com/@ri_bio.market" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="text-warm-cream hover:text-sage-green transition-colors"
+                       aria-label="tik tok ">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/ribiomarket?igsh=MWdqZ3NyN2E1b2R3eg==" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="text-warm-cream hover:text-sage-green transition-colors"
+                       aria-label="تابعنا على إنستغرام">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <p class="text-sm text-warm-cream/80">
+                    © 2025 Ribio. جميع الحقوق محفوظة. | منصة جزائرية للمنتجات الطبيعية
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 left-0 h-full w-96 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold text-forest-green">سلة التسوق</h3>
+                <button onclick="toggleCart()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-charcoal-gray text-center">سلة التسوق فارغة</p>
+        </div>
+        
+        <div class="border-t border-gray-200 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-bold text-lg">الإجمالي:</span>
+                <span id="cart-total" class="font-bold text-xl text-forest-green">0 دج</span>
+            </div>
+            <button onclick="proceedToCheckout()" class="btn-primary w-full py-3 rounded-full font-semibold">
+    إتمام الطلب
+</button>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()" aria-label="العودة للأعلى">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+    
+    <!-- Keyboard Shortcuts Hint -->
+    <div class="keyboard-hint" id="keyboard-hint">
+        اضغط <kbd>Ctrl</kbd> + <kbd>K</kbd> للبحث
+    </div>
+    
+    <!-- Enhanced Search Modal -->
+    <div class="search-modal" id="search-modal" onclick="closeSearchModal(event)">
+        <div class="search-modal-content" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="font-display text-2xl font-bold text-forest-green">البحث</h3>
+                <button onclick="closeSearchModal()" class="text-charcoal-gray hover:text-sage-green text-2xl" aria-label="إغلاق البحث">
+                    &times;
+                </button>
+            </div>
+            <div class="relative">
+                <input type="text" 
+                       id="search-modal-input"
+                       placeholder="ابحث عن منتجات، وصفات، أو مقالات..." 
+                       class="w-full px-6 py-4 pr-12 rounded-full border-2 border-sage-green/30 focus:border-sage-green focus:outline-none focus:ring-2 focus:ring-sage-green/20 bg-white dark:bg-bg-card text-charcoal-gray dark:text-text-primary"
+                       autofocus>
+                <button onclick="performSearchAction()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-sage-green">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="search-results" class="mt-6 max-h-96 overflow-y-auto">
+                <!-- Search results will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
