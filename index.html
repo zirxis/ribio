@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="منصة ريبيو - المنصة الجزائرية الأولى للمنتجات الطبيعية والعضوية">
+    <meta name="theme-color" content="#2D5016">
     <title>مرحباً في ريبيو - المنصة الجزائرية للمنتجات الطبيعية</title>
+    
+    <!-- Preload Logo -->
+    <link rel="preload" href="resources/logo.jpg" as="image">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="resources/favicon.jpg">
+    <link rel="apple-touch-icon" href="resources/apple-touch-icon.jpg">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +46,47 @@
         
         .font-display {
             font-family: 'El Messiri', serif;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-image {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .logo-text .main-text {
+            font-family: 'El Messiri', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #E8F5E8, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .logo-text .sub-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5px;
         }
         
         .nav-link {
@@ -154,24 +207,165 @@
         
         .delay-1 { animation-delay: 0.3s; }
         .delay-2 { animation-delay: 0.6s; }
+        
+        /* Logo specific animations */
+        .logo-pulse {
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        /* Social Media Styles */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-8px) scale(1.15);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--warm-cream);
+            box-shadow: 0 15px 35px rgba(45, 80, 22, 0.3);
+        }
+        
+        .social-link:active {
+            transform: translateY(-4px) scale(1.1);
+        }
+        
+        .social-link.facebook:hover {
+            background: linear-gradient(135deg, #1877F2, #166FE5);
+            border-color: #1877F2;
+        }
+        
+        .social-link.instagram:hover {
+            background: linear-gradient(135deg, #E4405F, #833AB4, #FD1D1D);
+            border-color: #E4405F;
+        }
+        
+        .social-link.twitter:hover {
+            background: linear-gradient(135deg, #1DA1F2, #1A8CD8);
+            border-color: #1DA1F2;
+        }
+        
+        .social-link.whatsapp:hover {
+            background: linear-gradient(135deg, #25D366, #20BA5A);
+            border-color: #25D366;
+        }
+        
+        .social-link.youtube:hover {
+            background: linear-gradient(135deg, #FF0000, #CC0000);
+            border-color: #FF0000;
+        }
+        
+        .social-link.tiktok:hover {
+            background: linear-gradient(135deg, #000000, #25F4EE);
+            border-color: #25F4EE;
+        }
+        
+        .social-link.telegram:hover {
+            background: linear-gradient(135deg, #0088cc, #0077b6);
+            border-color: #0088cc;
+        }
+        
+        .social-link i {
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        /* Fixed Social Bar (Optional) */
+        .fixed-social-bar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 40;
+        }
+        
+        .fixed-social-bar .social-link {
+            width: 45px;
+            height: 45px;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .fixed-social-bar {
+                display: none;
+            }
+            
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
+    <!-- Fixed Social Bar (Right Side) -->
+    <div class="fixed-social-bar">
+        <a href="https://www.facebook.com/ribio" target="_blank" rel="noopener noreferrer" class="social-link facebook" aria-label="تابعنا على فيسبوك" title="فيسبوك">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/ribio" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="تابعنا على إنستغرام" title="إنستغرام">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/213" target="_blank" rel="noopener noreferrer" class="social-link whatsapp" aria-label="راسلنا على واتساب" title="واتساب">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.tiktok.com/@ribio" target="_blank" rel="noopener noreferrer" class="social-link tiktok" aria-label="تابعنا على تيكتوك" title="تيكتوك">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <div class="flex items-center">
-                    <a href="logo.jpg" class="flex items-center">
-                        <h1 class="font-display text-2xl font-bold text-gradient">Ribio</h1>
-                        
-                    </a>
-                </div>
+                <a href="index.html" class="logo-container" aria-label="Ribio - الصفحة الرئيسية">
+                    <img src="resources/logo.jpg" 
+                         alt="شعار Ribio" 
+                         class="logo-image"
+                         width="50" 
+                         height="50"
+                         loading="eager">
+                    <div class="logo-text hidden sm:flex">
+                        <span class="main-text">Ribio</span>
+                        <span class="sub-text">منتجات طبيعية</span>
+                    </div>
+                </a>
                 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index2.html" class="nav-link text-white font-medium">الرئيسية</a>
+                    <a href="index.html" class="nav-link text-white font-medium" aria-current="page">الرئيسية</a>
+                    <a href="index2.html" class="nav-link hover:text-warm-cream">المتجر</a>
                     <a href="products.html" class="nav-link hover:text-warm-cream">المنتجات</a>
                     <a href="recipes.html" class="nav-link hover:text-warm-cream">الوصفات</a>
                     <a href="education.html" class="nav-link hover:text-warm-cream">التعليم</a>
@@ -179,7 +373,7 @@
                 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center space-x-4">
-                    <button class="md:hidden text-white hover:text-warm-cream">
+                    <button class="md:hidden text-white hover:text-warm-cream transition-colors p-2" aria-label="فتح القائمة">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -194,7 +388,11 @@
         <div class="text-center mb-16 fade-in">
             <div class="floating mb-8">
                 <div class="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto pulse-glow">
-                    <span class="text-4xl">🌿</span>
+                    <img src="resources/logo.jpg" 
+                         alt="شعار ريبيو" 
+                         class="w-24 h-24 object-contain"
+                         width="96"
+                         height="96">
                 </div>
             </div>
             
@@ -214,10 +412,10 @@
         <!-- Selection Cards -->
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <!-- Buyer Card -->
-            <div class="selection-card p-8 fade-in delay-1" onclick="selectRole('buyer')">
+            <div class="selection-card p-8 fade-in delay-1" onclick="selectRole('buyer')" role="button" tabindex="0" aria-label="اختر دور المشتري">
                 <div class="text-center">
                     <div class="icon-container buyer-icon mb-6 floating" style="animation-delay: -2s;">
-                        <span class="text-4xl text-white">🛒</span>
+                        <span class="text-5xl">🛒</span>
                     </div>
                     
                     <h2 class="font-display text-3xl font-bold text-[#2D5016] mb-4">مشتري</h2>
@@ -241,17 +439,17 @@
                         </div>
                     </div>
                     
-                    <button class="mt-8 w-full bg-[#2D5016] text-white py-4 rounded-2xl font-bold text-lg hover:bg-[#87A96B] transition-colors duration-300">
+                    <button class="mt-8 w-full bg-[#2D5016] text-white py-4 rounded-2xl font-bold text-lg hover:bg-[#87A96B] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#87A96B]">
                         ابدأ التسوق
                     </button>
                 </div>
             </div>
             
             <!-- Seller Card -->
-            <div class="selection-card p-8 fade-in delay-2" onclick="selectRole('seller')">
+            <div class="selection-card p-8 fade-in delay-2" onclick="selectRole('seller')" role="button" tabindex="0" aria-label="اختر دور البائع">
                 <div class="text-center">
                     <div class="icon-container seller-icon mb-6 floating" style="animation-delay: -4s;">
-                        <span class="text-4xl text-white">🏪</span>
+                        <span class="text-5xl">🏪</span>
                     </div>
                     
                     <h2 class="font-display text-3xl font-bold text-[#8B4513] mb-4">بائع</h2>
@@ -275,16 +473,40 @@
                         </div>
                     </div>
                     
-                    <button class="mt-8 w-full bg-[#8B4513] text-white py-4 rounded-2xl font-bold text-lg hover:bg-[#DAA520] transition-colors duration-300">
+                    <button class="mt-8 w-full bg-[#8B4513] text-white py-4 rounded-2xl font-bold text-lg hover:bg-[#DAA520] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DAA520]">
                         ابدأ البيع
                     </button>
                 </div>
             </div>
         </div>
         
+        <!-- Social Media Section -->
+        <div class="text-center mt-20 fade-in" style="animation-delay: 0.9s;">
+            <p class="text-white text-lg font-semibold mb-6">تابعنا على وسائل التواصل الاجتماعي</p>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/17dAJrZy3c/" target="_blank" rel="noopener noreferrer" class="social-link facebook" aria-label="تابعنا على فيسبوك">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/ribiomarket?igsh=MWdqZ3NyN2E1b2R3eg==" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="تابعنا على إنستغرام">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/213" target="_blank" rel="noopener noreferrer" class="social-link whatsapp" aria-label="راسلنا على واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.youtube.com/@ribio" target="_blank" rel="noopener noreferrer" class="social-link youtube" aria-label="تابعنا على يوتيوب">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="http://tiktok.com/@ri_bio.market" target="_blank" rel="noopener noreferrer" class="social-link tiktok" aria-label="تابعنا على تيكتوك">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                </a>
+            </div>
+        </div>
+        
         <!-- Footer Text -->
-        <div class="text-center mt-12 fade-in">
-            <p class="text-white/70 text-sm">
+        <div class="text-center mt-12 fade-in" style="animation-delay: 1.1s;">
+            <p class="text-white/70 text-sm" id="footer-message">
                 يمكنك تغيير هذا الاختيار لاحقاً من إعدادات حسابك
             </p>
         </div>
@@ -292,10 +514,10 @@
 
     <script>
         function selectRole(role) {
-            // حفظ الاختيار
+            // Save the choice
             localStorage.setItem('userRole', role);
             
-            // أنيميشن للنقر
+            // Animation for the click
             anime({
                 targets: event.currentTarget,
                 scale: [1, 0.95, 1],
@@ -303,7 +525,7 @@
                 easing: 'easeInOutQuad'
             });
             
-            // الانتقال للصفحة المناسبة
+            // Navigate to the appropriate page
             setTimeout(() => {
                 if (role === 'buyer') {
                     window.location.href = 'index2.html';
@@ -313,24 +535,56 @@
             }, 500);
         }
         
-        // عرض الرسالة الترحيبية عند تحميل الصفحة
+        // Show welcome message on page load
         window.addEventListener('load', function() {
             const savedRole = localStorage.getItem('userRole');
-            if (savedRole) {
-                // عرض رسالة ترحيبية بدلاً من إعادة التوجيه
-                const footerText = document.querySelector('.text-center.mt-12.fade-in p');
-                if (footerText) {
-                    if (savedRole === 'buyer') {
-                        footerText.innerHTML = `
-                            مرحباً بك كمشتري! يمكنك <a href="index2.html" class="text-white underline font-semibold">الانتقال إلى الصفحة الرئيسية</a> أو <a href="seller-registration.html" class="text-white underline font-semibold">التبديل إلى وضع البائع</a>
-                        `;
-                    } else {
-                        footerText.innerHTML = `
-                            مرحباً بك كبائع! يمكنك <a href="seller-registration.html" class="text-white underline font-semibold">الانتقال إلى صفحة التسجيل</a> أو <a href="index2.html" class="text-white underline font-semibold">التصفح كمشتري</a>
-                        `;
-                    }
+            const footerMessage = document.getElementById('footer-message');
+            
+            if (savedRole && footerMessage) {
+                if (savedRole === 'buyer') {
+                    footerMessage.innerHTML = `
+                        <span class="inline-block">مرحباً بك كمشتري!</span>
+                        <span class="block mt-2">
+                            <a href="index2.html" class="text-white underline font-semibold hover:text-[#E8F5E8]">انتقل إلى المتجر</a>
+                            أو
+                            <a href="seller-registration.html" class="text-white underline font-semibold hover:text-[#E8F5E8]">تبديل إلى وضع البائع</a>
+                        </span>
+                    `;
+                } else if (savedRole === 'seller') {
+                    footerMessage.innerHTML = `
+                        <span class="inline-block">مرحباً بك كبائع!</span>
+                        <span class="block mt-2">
+                            <a href="seller-registration.html" class="text-white underline font-semibold hover:text-[#E8F5E8]">متابعة التسجيل</a>
+                            أو
+                            <a href="index2.html" class="text-white underline font-semibold hover:text-[#E8F5E8]">التصفح كمشتري</a>
+                        </span>
+                    `;
                 }
             }
+        });
+        
+        // Keyboard navigation for cards
+        document.querySelectorAll('.selection-card').forEach(card => {
+            card.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    this.click();
+                }
+            });
+        });
+        
+        // Animate social icons on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const socialLinks = document.querySelectorAll('.social-link');
+            socialLinks.forEach((link, index) => {
+                anime({
+                    targets: link,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    delay: 1200 + (index * 100),
+                    duration: 600,
+                    easing: 'easeOutQuart'
+                });
+            });
         });
     </script>
 </body>
