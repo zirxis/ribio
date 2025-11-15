@@ -1,1361 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التعليم والمقالات - Ribio | مركز المعرفة للمنتجات الطبيعية</title>
-    <meta name="description" content="تعلم كل ما تحتاج معرفته عن الطب البديل، التغذية الطبيعية، ونمط الحياة الصحي من خلال مقالات ودليلات تعليمية متخصصة">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Core Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --forest-green: #2D5016;
-            --sage-green: #87A96B;
-            --warm-cream: #F8F6F0;
-            --rich-earth: #8B4513;
-            --soft-mint: #E8F5E8;
-            --golden-honey: #DAA520;
-            --charcoal-gray: #36454F;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--warm-cream);
-            color: var(--charcoal-gray);
-        }
-        
-        .font-display {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
-        }
-        
-        .btn-primary {
-            background-color: var(--forest-green);
-            color: var(--warm-cream);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--sage-green);
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.3);
-        }
-        
-        .btn-secondary {
-            border: 2px solid var(--sage-green);
-            color: var(--sage-green);
-            background: transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--sage-green);
-            color: var(--warm-cream);
-            transform: scale(1.05);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, var(--forest-green), var(--sage-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .article-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
-            transition: all 0.4s ease;
-        }
-        
-        .article-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.2);
-        }
-        
-        .category-filter {
-            background: var(--soft-mint);
-            color: var(--forest-green);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .category-filter:hover {
-            background: var(--sage-green);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .category-filter.active {
-            background: var(--forest-green);
-            color: white;
-            border-color: var(--golden-honey);
-        }
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--sage-green);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .cart-badge {
-            background-color: var(--golden-honey);
-            color: white;
-            font-size: 0.75rem;
-            min-width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: -8px;
-            left: -8px;
-        }
-        
-        .search-input {
-            background: white;
-            border: 2px solid var(--sage-green);
-            border-radius: 25px;
-            padding: 12px 20px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: var(--forest-green);
-            box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.2);
-        }
-        
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--sage-green), var(--forest-green));
-            z-index: 1000;
-            transition: width 0.3s ease;
-        }
-        
-        .bookmark-btn {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .bookmark-btn:hover {
-            background: var(--sage-green);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        .bookmark-btn.bookmarked {
-            background: var(--golden-honey);
-            color: white;
-        }
-        
-        .stats-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
-        }
-        
-        .video-thumbnail {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .video-thumbnail:hover {
-            transform: scale(1.05);
-        }
-        
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(45, 80, 22, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            transition: all 0.3s ease;
-        }
-        
-        .play-button:hover {
-            background: var(--forest-green);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-    </style>
-</head>
-<body>
-    <!-- Reading Progress Bar -->
-    <div class="reading-progress" id="reading-progress"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-sage-green/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <h1 class="font-display text-2xl font-bold text-gradient">Ribio</h1>
-                    <span class="ml-2 text-sm text-sage-green">🌿</span>
-                </div>
-                
-                <!-- Navigation Links -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link text-charcoal-gray hover:text-sage-green">الرئيسية</a>
-                    <a href="products.html" class="nav-link text-charcoal-gray hover:text-sage-green">المنتجات</a>
-                    <a href="recipes.html" class="nav-link text-charcoal-gray hover:text-sage-green">الوصفات</a>
-                    <a href="education.html" class="nav-link text-forest-green font-medium">التعليم</a>
-                </div>
-                
-                <!-- Cart & Search -->
-                <div class="flex items-center space-x-4">
-                    <button class="text-charcoal-gray hover:text-sage-green transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
-                    <button class="relative text-charcoal-gray hover:text-sage-green transition-colors" onclick="toggleCart()">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0h9"></path>
-                        </svg>
-                        <span id="cart-badge" class="cart-badge hidden">0</span>
-                    </button>
-                    
-                    <!-- Mobile Menu Button -->
-                    <button class="md:hidden text-charcoal-gray hover:text-sage-green">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Page Header -->
-    <section class="pt-24 pb-12 bg-gradient-to-br from-sage-green/10 to-forest-green/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center fade-in">
-                <h1 class="font-display text-4xl lg:text-6xl font-bold text-forest-green mb-6">مركز المعرفة</h1>
-                <p class="text-xl text-charcoal-gray max-w-3xl mx-auto">
-                    تعلم من الخبراء كل ما تحتاج معرفته عن الطب البديل، التغذية الطبيعية، ونمط الحياة الصحي
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Search and Filter Section -->
-    <section class="py-8 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-6 items-center justify-between fade-in">
-                <!-- Search Bar -->
-                <div class="w-full lg:w-96">
-                    <div class="relative">
-                        <input type="text" id="search-input" placeholder="ابحث عن مقالات، فيديوهات، أو مواضيع..." 
-                               class="search-input pr-12">
-                        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-sage-green hover:text-forest-green">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Category Filters -->
-                <div class="flex flex-wrap gap-3">
-                    <button class="category-filter active" onclick="filterContent('all')">الكل</button>
-                    <button class="category-filter" onclick="filterContent('alternative-medicine')">الطب البديل</button>
-                    <button class="category-filter" onclick="filterContent('nutrition')">التغذية</button>
-                    <button class="category-filter" onclick="filterContent('lifestyle')">نمط الحياة</button>
-                    <button class="category-filter" onclick="filterContent('safety')">السلامة</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Article -->
-    <section class="py-16 hero-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-8 text-center">مقال مميز</h2>
-                
-                <div class="article-card max-w-4xl mx-auto">
-                    <div class="relative">
-                        <img src="resources/wellness-lifestyle.jpg" alt="الطب البديل والعصر الحديث" 
-                             class="w-full h-64 lg:h-80 object-cover">
-                        <button class="bookmark-btn" onclick="toggleBookmark('featured-article')">
-                            <span id="bookmark-icon">🔖</span>
-                        </button>
-                        <div class="absolute top-4 right-4 bg-golden-honey text-white px-4 py-2 rounded-full text-sm font-semibold">
-                            مقال مميز
-                        </div>
-                    </div>
-                    
-                    <div class="p-8">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="bg-soft-mint text-forest-green px-3 py-1 rounded-full text-sm font-semibold">
-                                الطب البديل
-                            </span>
-                            <span class="text-charcoal-gray text-sm">15 دقيقة قراءة</span>
-                            <span class="text-charcoal-gray text-sm">⭐ 4.9</span>
-                        </div>
-                        
-                        <h3 class="font-display text-2xl lg:text-3xl font-bold text-forest-green mb-4">
-                            الطب البديل في العصر الحديث: بين التقليد والعلم
-                        </h3>
-                        
-                        <p class="text-lg text-charcoal-gray leading-relaxed mb-6">
-                           العلاج بالأعشاب
-
-Traitement par les Plantes Médicinales
-
-من أشهر وسائل الطبّ التقليدي والطبّ البديل، وتكمل ما هو مناسب منها من العلاجات، وذلك لانتشار استعمالها على مستوى العالم، هو العلاج بالأعشاب.
-والنباتات الطبية تُعدّ أهم المواد الطبيعية للأعشاب على مرّ قرون عديدة مضت.
-وقد اهتم به ودَرَسه على مرّ العصور المصريون، وسجّلت أُثره على العصور الإغريق، والرومان، والقدماء وغيرهم.
-حضارات الهند والصينيين، لأن المواد الطبيعية كانت تستغل على نطاق واسع للعلاج جميع الأمراض المعروفة قديماً.
-
-وأثبت العلم الحديث فعاليتها، لأن أغلب النباتات الطبية تحتوي على عناصر فعّالة تؤثر على الجسم في مختلف أنواع الأمراض، وتخصّص الأعشاب بأهم الخصائص العلاجية لتعديل توازن الأعضاء المصاب خللها، باختلاف المزايا التي تحملها الأعشاب، نؤكد أنّ الأعشاب هي أدوية المستقبل.
-
-ويمكن إنجاز مزايا العلاج بالأعشاب على النحو التالي:
-
-أولاً:
-
-تعتبر الأعشاب له دور هام في تسكين أو في تسبب لحدوث أعراض جانبية.
-ولذلك إذا ما قورنت بالأدوية المصنّعة نجد أنها كثيراً منها تسبب اختلالاً يصعب التخلص تجاه الأمراض التي تسلّم منها، وإن تكثر حالات التدوينات قد نجحت على تعاطي الأدوية الصعبة.
-
-ثانياً:
-
-تتميز بعض الأعشاب بدور هام بأنها تترك أثر غير شخصي فعل.
-ولذلك لأنها تتميز بالمزايا العلاجية للأمراض التي تُثبت.
-لأن العشب كبير يحتوي على عنصر طبيعي (أعشوبياً) يتم للعلاج الفعّال للتهدئة مكان بيّن.
-                            ثانياً: لأن بعض الأعشاب تحتوي على عناصر تساعد على امتصاص العضو الفعّال، وبالتالي زيادة مفعوله في علاج المرض.
-
-ثالثاً: من أهم مشكلات الأدوية المصنعة، أنها قد تسبب حالات من التسمم إذا استُخدِمت بجرعات كبيرة.
-
-📝 مزايا وعيوب الأعشاب والأدوية المصنعة:
-رابعاً: بالرغم من أن الأدوية المصنعة قد تنجح في علاج أغلب الأمراض التي تَتَعَرَّضُ منها البشر، إلا أن مشاكلها قد تجعل العلاج بها لا يُعالِج الاكتئاب (إضافة العناصر الفعالة فيها، من أمثلة ذلك مُشَبِّه أصبع العذراء (Digitalis) الفعَّال الذي يحتوي على مُرَكَّب الديجيتوكسيلا وهو عِلاج سَرِيع لمرض فشل القلب الاحتقاني).
-
-خامساً: من أهم مشكلات الأدوية المصنعة، أن استعمال العلاج الكثير منها يُفْقِد خطورته على الجهاز الهضمي والـتواليف ولإطِفَال، والرِّشَة، بينما استخدام الأعشاب بوجه عام نادرًا ما يسبب تشوهات للأجِنَّة، كما أن التشوهات التي سُجِّلَت نُسِبَت لتناول الأعشاب بكميات أكثر من الناحية. كما أنها أكثر أمانًا، والابتعاد عن خطورة المواليد.
-
-سادساً: أظهرت الدراسات العلمية أن استعمال الكثير من الأدوية المصنعة يضعف من مناعة الجسم ويفقد من قدرته على مقاومة الأمراض، بينما الاستعمال الأَمْثَل للكثير من الأعشاب يساعد على تقوية القلب مثل (جذور الدقن) (L'hysope) ومنها ما يقلل ضخامة وفعالية (Promesse) وينشط الكبد (Fric)، ومنها ما يُفِيد في علاج الأمراض المُزْمِنة.
-
-سابعاً: تتميز الأعشاب عن الأدوية المصنعة، بأن معظم المرضى يَقْتَنُونَ الأعشاب، ويَعْتَقِدُون في فاعليتها، أما الأدوية المصنعة فليس لها قوة. وهي التي تساعد على الإغاثة، والأثر النفسي الإيجابي للهرمون (الراسين) (L’elip) وهي من أهم العوامل التي تقوي مفعول الدواء في علاج الأمراض وتسكين الآلام.
-                            تقسيم الأعشاب والنباتات طبقًا لمزاياها العلاجية
-يمكن تقسيم الأعشاب والنباتات الطبية المستخدمة في العلاج إلى مجموعة النباتات المتشابهة في تأثيرها الطبي، والنظر إلى فاعليتها وقدرتها على أنواعها أو أعضاء النبات أو إلى الجزء المستخدم ومكوناتها الفعالة، ويمكن إيجازها فيما يلي:
-
-أولاً: نباتات وأعشاب مُسَكِّنة للآلام مثل: الشيخ (L'armoise) واللافندر (Lavande) والمُجِدِّشة الدوار.
-
-ثانياً: نباتات وأعشاب مُخَفِّضة لضغط الدم مثل: الكركديه وبذور المواقع.
-
-ثالثاً: نباتات طاردة للديدان المعوية مثل: قشور جذور الرمان ونباتات الحنظل والشيخ والزيتونج.
-
-رابعاً: نباتات مُهَدِّئة جنسيًا مثل: اليانسون والشبت.
-
-خامساً: نباتات مقوية جنسيًا مثل: القرفة، الكرنب والخَرْبَزج.
-
-سادساً: نباتات مُطَهِّرة ومُضَادة للميكروبات منها ما يحتوي على زيوت طيارة مثل: الكاموميل (Camille) والقرنفل والمرزنجوش والكينابر وغيرها، ومنها ما يحتوي على حمض التنيك أو العفص مثل: نبات الشمط وعصور الرمان والخرّوب.
-
-سابعاً: نباتات قابضة لعلاج الإسهال مثل: الرمان والجميز والشاي والتوت والنّشّار والسُبْسُم (Pois chiche).
-
-ثامناً: نباتات مُلَيِّنة لعلاج الإمساك والاضطرابات المِعَدِيّة والكلوية مثل: القرْص (La Requeille) والتين والجميز والملوخية والراوند.
-
-تاسعاً: نباتات مُسَهِّلة لعلاج الإمساك المُزْمِن مثل: السنَّامكي وورق زيت والخطمي.
-
-عاشراً: نباتات مُنَشِّطة للجهاز الهضمي مثل: الشاي والبن والكاكاو والتيك (Thé).
-                        </p>
-                        
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="readArticle('featured-article')" 
-                                    class="btn-primary px-6 py-3 rounded-full font-semibold">
-                                قراءة المقال الكامل
-                            </button>
-                            <button onclick="shareArticle('featured-article')" 
-                                    class="btn-secondary px-6 py-3 rounded-full font-semibold">
-                                مشاركة المقال
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">إحصائيات التعلم</h2>
-                <p class="text-lg text-charcoal-gray">محتوى تعليمي متنوع وشامل</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="stats-card fade-in">
-                    <div class="text-3xl mb-4">📚</div>
-                    <div class="text-3xl font-bold text-forest-green mb-2" id="articles-count">150+</div>
-                    <div class="text-charcoal-gray">مقال تعليمي</div>
-                </div>
-                
-                <div class="stats-card fade-in" style="animation-delay: 0.1s;">
-                    <div class="text-3xl mb-4">🎥</div>
-                    <div class="text-3xl font-bold text-forest-green mb-2" id="videos-count">45+</div>
-                    <div class="text-charcoal-gray">فيديو تعليمي</div>
-                </div>
-                
-                <div class="stats-card fade-in" style="animation-delay: 0.2s;">
-                    <div class="text-3xl mb-4">👨‍⚕️</div>
-                    <div class="text-3xl font-bold text-forest-green mb-2" id="experts-count">12</div>
-                    <div class="text-charcoal-gray">خبير ومختص</div>
-                </div>
-                
-                <div class="stats-card fade-in" style="animation-delay: 0.3s;">
-                    <div class="text-3xl mb-4">📖</div>
-                    <div class="text-3xl font-bold text-forest-green mb-2" id="readers-count">25K+</div>
-                    <div class="text-charcoal-gray">قارئ نشط</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Articles Grid -->
-    <section class="py-16 hero-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">أحدث المقالات</h2>
-                <p class="text-lg text-charcoal-gray">اكتشف أحدث ما كتبناه عن الصحة والعافية الطبيعية</p>
-            </div>
-            
-            <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Articles will be loaded here dynamically -->
-            </div>
-            
-            <!-- Load More Button -->
-            <div class="text-center mt-12 fade-in">
-                <button onclick="loadMoreArticles()" id="load-more-btn" 
-                        class="btn-primary px-8 py-3 rounded-full font-semibold">
-                    تحميل المزيد من المقالات
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Video Content Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">فيديوهات تعليمية</h2>
-                <p class="text-lg text-charcoal-gray">شاهد وتابع دليلنا المرئي للعناية الطبيعية</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="videos-grid">
-                <!-- Videos will be loaded here dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Learning Chart -->
-    <section class="py-16 hero-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">شعبية المواضيع</h2>
-                <p class="text-lg text-charcoal-gray">أكثر المواضيع التي يقرأها زوارنا</p>
-            </div>
-            
-            <div class="bg-white rounded-3xl p-8 fade-in">
-                <div id="topics-chart" style="width: 100%; height: 400px;"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Expert Interviews -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">لقاءات الخبراء</h2>
-                <p class="text-lg text-charcoal-gray">استمع إلى نصائح الخبراء والمتخصصين في الطب البديل</p>
-            </div>
-            
-            <div class="splide fade-in" id="expert-interviews">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="article-card mx-4">
-                                <div class="video-thumbnail relative">
-                                    <img src="resources/wellness-lifestyle.jpg" alt="دكتور أحمد محمد - أخصائي الطب البديل" 
-                                         class="w-full h-48 object-cover">
-                                    <div class="play-button">▶</div>
-                                </div>
-                                <div class="p-6">
-                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">
-                                        الطب البديل في الجزائر: التراث والحداثة
-                                    </h3>
-                                    <p class="text-charcoal-gray text-sm mb-4">
-                                        حوار مع د. أحمد محمد حول كيفية دمج الطب التقليدي الجزائري مع العلوم الحديثة
-                                    </p>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-sage-green font-semibold">25 دقيقة</span>
-                                        <button class="btn-primary px-4 py-2 rounded-full text-sm">
-                                            مشاهدة اللقاء
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="article-card mx-4">
-                                <div class="video-thumbnail relative">
-                                    <img src="resources/product-herbs.jpg" alt="دكتورة فاطمة الزهراء - خبيرة التغذية" 
-                                         class="w-full h-48 object-cover">
-                                    <div class="play-button">▶</div>
-                                </div>
-                                <div class="p-6">
-                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">
-                                        التغذية العلاجية بالأعشاب
-                                    </h3>
-                                    <p class="text-charcoal-gray text-sm mb-4">
-                                        نصائح مهمة حول استخدام الأعشاب في تحسين الصحة وعلاج الأمراض البسيطة
-                                    </p>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-sage-green font-semibold">18 دقيقة</span>
-                                        <button class="btn-primary px-4 py-2 rounded-full text-sm">
-                                            مشاهدة اللقاء
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="article-card mx-4">
-                                <div class="video-thumbnail relative">
-                                    <img src="resources/wellness-ingredients.jpg" alt="دكتور كريم بن علي - أخصائي العافية" 
-                                         class="w-full h-48 object-cover">
-                                    <div class="play-button">▶</div>
-                                </div>
-                                <div class="p-6">
-                                    <h3 class="font-display text-xl font-bold text-forest-green mb-2">
-                                        نمط الحياة الصحي في المجتمع العربي
-                                    </h3>
-                                    <p class="text-charcoal-gray text-sm mb-4">
-                                        كيفية تبني نمط حياة صحي يتوافق مع ثقافتنا وبيئتنا
-                                    </p>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-sage-green font-semibold">22 دقيقة</span>
-                                        <button class="btn-primary px-4 py-2 rounded-full text-sm">
-                                            مشاهدة اللقاء
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Tips -->
-    <section class="py-16 hero-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">نصائح سريعة</h2>
-                <p class="text-lg text-charcoal-gray">نصائح يومية سهلة التطبيق لصحة أفضل</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white rounded-2xl p-6 text-center fade-in">
-                    <div class="text-4xl mb-4">🌅</div>
-                    <h3 class="font-bold text-forest-green mb-2">بدء اليوم</h3>
-                    <p class="text-charcoal-gray text-sm">اشرب كوباً من الماء الدافئ مع عصير الليمون لتحفيز عملية الأيض</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.1s;">
-                    <div class="text-4xl mb-4">🧘</div>
-                    <h3 class="font-bold text-forest-green mb-2">الاسترخاء</h3>
-                    <p class="text-charcoal-gray text-sm">خصص 10 دقائق يومياً للتنفس العميق أو التأمل لتقليل التوتر</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.2s;">
-                    <div class="text-4xl mb-4">🥗</div>
-                    <h3 class="font-bold text-forest-green mb-2">التغذية</h3>
-                    <p class="text-charcoal-gray text-sm">أضف الأعشاب الطازجة إلى وجباتك للحصول على فوائد إضافية</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.3s;">
-                    <div class="text-4xl mb-4">💤</div>
-                    <h3 class="font-bold text-forest-green mb-2">النوم</h3>
-                    <p class="text-charcoal-gray text-sm">استخدم زيت اللافندر للمساعدة على نوم عميق ومريح</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Shopping Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed top-0 left-0 h-full w-96 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50">
-        <div class="p-6 border-b border-gray-200">
-            <div class="flex justify-between items-center">
-                <h3 class="font-display text-xl font-bold text-forest-green">سلة التسوق</h3>
-                <button onclick="toggleCart()" class="text-charcoal-gray hover:text-sage-green text-2xl">&times;</button>
-            </div>
-        </div>
-        
-        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
-            <p class="text-charcoal-gray text-center">سلة التسوق فارغة</p>
-        </div>
-        
-        <div class="border-t border-gray-200 p-6">
-            <div class="flex justify-between items-center mb-4">
-                <span class="font-bold text-lg">الإجمالي:</span>
-                <span id="cart-total" class="font-bold text-xl text-forest-green">0 دج</span>
-            </div>
-            <button onclick="proceedToCheckout()" class="btn-primary w-full py-3 rounded-full font-semibold">
-    إتمام الطلب
-</button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-forest-green text-warm-cream py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="font-display text-3xl font-bold mb-4">Ribio</h3>
-                <p class="text-lg mb-6">منصتك الجزائرية للمنتجات الطبيعية والعناية الصحية</p>
-                
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-warm-cream hover:text-sage-green transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <p class="text-sm text-warm-cream/80">
-                    © 2025 Ribio. جميع الحقوق محفوظة. | منصة جزائرية للمنتجات الطبيعية
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Education Page State
-        let currentFilter = 'all';
-        let articlesData = [];
-        let videosData = [];
-        let displayedArticles = 6;
-        let bookmarkedItems = JSON.parse(localStorage.getItem('bookmarked-items') || '[]');
-
-        // Articles Database
-        const articlesDatabase = [
-            {
-                id: 'herbs-guide-2024',
-                title: 'دليلك الشامل لأفضل الأعشاب الطبية في 2024',
-                category: 'alternative-medicine',
-                readTime: '12 دقيقة',
-                rating: 4.8,
-                image: 'resources/product-herbs.jpg',
-                excerpt: 'اكتشف أهم الأعشاب الطبية التي أثبتت فعاليتها علمياً وكيفية استخدامها بأمان في العلاجات المنزلية.',
-                author: 'د. فاطمة الزهراء',
-                date: '2024-10-25',
-                tags: ['أعشاب طبية', 'علاج طبيعي', 'صحة منزلية']
-            },
-            {
-                id: 'natural-oils-benefits',
-                title: 'فوائد الزيوت الطبيعية للبشرة والشعر: حقائق علمية',
-                category: 'nutrition',
-                readTime: '15 دقيقة',
-                rating: 4.7,
-                image: 'resources/product-oils.jpg',
-                excerpt: 'تعرف على الزيوت الأساسية وكيفية استخدامها بشكل صحيح للعناية بالبشرة والشعر مع الأدلة العلمية.',
-                author: 'د. أحمد محمد',
-                date: '2024-10-23',
-                tags: ['زيوت أساسية', 'عناية بالبشرة', 'عناية بالشعر']
-            },
-            {
-                id: 'healthy-lifestyle-tips',
-                title: '10 عادات يومية لنمط حياة صحي وطبيعي',
-                category: 'lifestyle',
-                readTime: '8 دقائق',
-                rating: 4.6,
-                image: 'resources/wellness-lifestyle.jpg',
-                excerpt: 'عادات بسيطة يمكنك تطبيقها في حياتك اليومية لتحسين صحتك العامة وزيادة طاقتك بشكل طبيعي.',
-                author: 'أ. كريم بن علي',
-                date: '2024-10-22',
-                tags: ['نمط حياة', 'صحة يومية', 'عادات صحية']
-            },
-            {
-                id: 'natural-supplements-safety',
-                title: 'السلامة في استخدام المكملات الطبيعية: ما يجب معرفته',
-                category: 'safety',
-                readTime: '18 دقيقة',
-                rating: 4.9,
-                image: 'resources/product-supplements.jpg',
-                excerpt: 'دليل شامل حول كيفية اختيار واستخدام المكملات الطبيعية بأمان وتجنب التفاعلات الضارة.',
-                author: 'د. سارة مختار',
-                date: '2024-10-20',
-                tags: ['مكملات طبيعية', 'سلامة', 'إرشادات']
-            },
-            {
-                id: 'honey-health-benefits',
-                title: 'العسل الطبيعي: كنز الصحة والجمال',
-                category: 'nutrition',
-                readTime: '10 دقائق',
-                rating: 4.5,
-                image: 'resources/product-honey.jpg',
-                excerpt: 'اكتشف الفوائد الصحية المذهلة للعسل الطبيعي وكيفية استخدامه في العلاجات المنزلية والعناية الشخصية.',
-                author: 'د. ليلى بوزيد',
-                date: '2024-10-18',
-                tags: ['عسل طبيعي', 'فوائد صحية', 'علاج منزلي']
-            },
-            {
-                id: 'skincare-natural-routines',
-                title: 'روتين العناية الطبيعية بالبشرة خطوة بخطوة',
-                category: 'lifestyle',
-                readTime: '14 دقيقة',
-                rating: 4.7,
-                image: 'resources/wellness-ingredients.jpg',
-                excerpt: 'دليل عملي لإنشاء روتين عناية بالبشرة باستخدام منتجات طبيعية فعالة وآمنة لجميع أنواع البشرة.',
-                author: 'أ. نورا سعدي',
-                date: '2024-10-15',
-                tags: ['عناية بالبشرة', 'منتجات طبيعية', 'روتين يومي']
-            },
-            {
-                id: 'stress-management-herbs',
-                title: 'أعشاب مهدئة للتوتر والقلق: دليل العلاج الطبيعي',
-                category: 'alternative-medicine',
-                readTime: '16 دقيقة',
-                rating: 4.8,
-                image: 'resources/product-herbs.jpg',
-                excerpt: 'تعرف على الأعشاب الطبيعية الفعالة في تقليل التوتر والقلق وكيفية استخدامها بشكل آمن وفعال.',
-                author: 'د. رشيد بelabbes',
-                date: '2024-10-12',
-                tags: ['أعشاب مهدئة', 'توتر', 'علاج طبيعي']
-            },
-            {
-                id: 'natural-immunity-boosters',
-                title: 'تقوية المناعة بشكل طبيعي: أطعمة وأعشاب فعالة',
-                category: 'nutrition',
-                readTime: '13 دقيقة',
-                rating: 4.6,
-                image: 'resources/product-collection.jpg',
-                excerpt: 'اكتشف الأطعمة والأعشاب التي تساعد على تقوية الجهاز المناعي بشكل طبيعي وفعال.',
-                author: 'د. فاطمة الزهراء',
-                date: '2024-10-10',
-                tags: ['مناعة', 'تغذية', 'أعشاب']
-            }
-        ];
-
-        // Videos Database
-        const videosDatabase = [
-            {
-                id: 'video-1',
-                title: 'كيفية صنع قناع العسل والكركم في المنزل',
-                duration: '5:32',
-                thumbnail: 'resources/wellness-ingredients.jpg',
-                category: 'skincare',
-                views: '12.5K',
-                description: 'دليل مرئي خطوة بخطوة لصنع قناع طبيعي فعال للعناية بالبشرة'
-            },
-            {
-                id: 'video-2',
-                title: 'فوائد زيت الأركان للشعر: الطريقة الصحيحة للاستخدام',
-                duration: '8:15',
-                thumbnail: 'resources/product-oils.jpg',
-                category: 'haircare',
-                views: '18.2K',
-                description: 'تعرف على فوائد زيت الأركان وكيفية استخدامه للحصول على أفضل النتائج'
-            },
-            {
-                id: 'video-3',
-                title: 'مشروبات الأعشاب للاسترخاء وتحسين النوم',
-                duration: '6:45',
-                thumbnail: 'resources/product-herbs.jpg',
-                category: 'wellness',
-                views: '9.8K',
-                description: 'تعلم كيف تحضر مشروبات أعشاب طبيعية للمساعدة على الاسترخاء والنوم العميق'
-            },
-            {
-                id: 'video-4',
-                title: 'نصائح مهمة لاختيار المنتجات الطبيعية',
-                duration: '10:20',
-                thumbnail: 'resources/product-collection.jpg',
-                category: 'education',
-                views: '15.3K',
-                description: 'دليل مهم لاختيار المنتجات الطبيعية عالية الجودة وتجنب الغش التجاري'
-            },
-            {
-                id: 'video-5',
-                title: 'روتين العناية الطبيعية الصباحي',
-                duration: '12:05',
-                thumbnail: 'resources/wellness-lifestyle.jpg',
-                category: 'lifestyle',
-                views: '22.1K',
-                description: 'روتين كامل للعناية بالبشرة والجسم باستخدام منتجات طبيعية'
-            },
-            {
-                id: 'video-6',
-                title: 'فوائد العسل الطبيعي: أكثر من مجرد حلاوة',
-                duration: '7:30',
-                thumbnail: 'resources/product-honey.jpg',
-                category: 'nutrition',
-                views: '11.7K',
-                description: 'اكتشف الفوائد الصحية المذهلة للعسل الطبيعي واستخداماته المتعددة'
-            }
-        ];
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeEducationPage();
-        });
-
-        function initializeEducationPage() {
-            articlesData = [...articlesDatabase];
-            videosData = [...videosDatabase];
-            
-            loadArticles();
-            loadVideos();
-            initializeChart();
-            initializeExpertInterviews();
-            initializeScrollAnimations();
-            initializeReadingProgress();
-            loadCart();
-            
-            // Initialize search
-            document.getElementById('search-input').addEventListener('input', debounce((e) => {
-                searchContent(e.target.value);
-            }, 300));
-        }
-
-        function loadArticles() {
-            const articlesToShow = articlesData.slice(0, displayedArticles);
-            const grid = document.getElementById('articles-grid');
-            
-            grid.innerHTML = articlesToShow.map(article => `
-                <div class="article-card fade-in" data-category="${article.category}">
-                    <div class="relative">
-                        <img src="${article.image}" alt="${article.title}" 
-                             class="w-full h-48 object-cover">
-                        <button class="bookmark-btn ${bookmarkedItems.includes(article.id) ? 'bookmarked' : ''}" 
-                                onclick="toggleBookmark('${article.id}')">
-                            <span>🔖</span>
-                        </button>
-                        <div class="absolute top-4 right-4 bg-sage-green text-white px-3 py-1 rounded-full text-sm font-semibold">
-                            ${article.readTime}
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="bg-soft-mint text-forest-green px-3 py-1 rounded-full text-xs font-semibold">
-                                ${getCategoryName(article.category)}
-                            </span>
-                            <span class="text-charcoal-gray text-xs">⭐ ${article.rating}</span>
-                        </div>
-                        
-                        <h3 class="font-display text-xl font-bold text-forest-green mb-3 leading-tight">
-                            ${article.title}
-                        </h3>
-                        
-                        <p class="text-charcoal-gray text-sm mb-4 leading-relaxed">
-                            ${article.excerpt}
-                        </p>
-                        
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center text-xs text-charcoal-gray">
-                                <span>✍️ ${article.author}</span>
-                                <span class="mx-2">•</span>
-                                <span>📅 ${formatDate(article.date)}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            ${article.tags.map(tag => `
-                                <span class="bg-gray-100 text-charcoal-gray px-2 py-1 rounded-full text-xs">
-                                    ${tag}
-                                </span>
-                            `).join('')}
-                        </div>
-                        
-                        <div class="flex gap-2">
-                            <button onclick="readArticle('${article.id}')" 
-                                    class="btn-primary flex-1 py-2 rounded-full text-sm font-semibold">
-                                قراءة المقال
-                            </button>
-                            <button onclick="shareArticle('${article.id}')" 
-                                    class="btn-secondary px-4 py-2 rounded-full text-sm">
-                                مشاركة
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-            
-            // Animate articles
-            anime({
-                targets: '.article-card',
-                opacity: [0, 1],
-                translateY: [30, 0],
-                delay: anime.stagger(100),
-                duration: 600,
-                easing: 'easeOutQuart'
-            });
-            
-            // Update load more button
-            const loadMoreBtn = document.getElementById('load-more-btn');
-            if (displayedArticles >= articlesData.length) {
-                loadMoreBtn.style.display = 'none';
-            } else {
-                loadMoreBtn.style.display = 'block';
-            }
-        }
-
-        function loadVideos() {
-            const grid = document.getElementById('videos-grid');
-            
-            grid.innerHTML = videosData.map(video => `
-                <div class="article-card fade-in">
-                    <div class="video-thumbnail relative" onclick="playVideo('${video.id}')">
-                        <img src="${video.thumbnail}" alt="${video.title}" 
-                             class="w-full h-48 object-cover">
-                        <div class="play-button">▶</div>
-                        <div class="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-sm">
-                            ${video.duration}
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="bg-soft-mint text-forest-green px-3 py-1 rounded-full text-xs font-semibold">
-                                فيديو تعليمي
-                            </span>
-                            <span class="text-charcoal-gray text-xs">👁️ ${video.views}</span>
-                        </div>
-                        
-                        <h3 class="font-display text-lg font-bold text-forest-green mb-3 leading-tight">
-                            ${video.title}
-                        </h3>
-                        
-                        <p class="text-charcoal-gray text-sm mb-4 leading-relaxed">
-                            ${video.description}
-                        </p>
-                        
-                        <button onclick="playVideo('${video.id}')" 
-                                class="btn-primary w-full py-2 rounded-full text-sm font-semibold">
-                            مشاهدة الفيديو
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterContent(category) {
-            // Update active filter
-            document.querySelectorAll('.category-filter').forEach(filter => {
-                filter.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            currentFilter = category;
-            
-            // Filter articles
-            if (category === 'all') {
-                articlesData = [...articlesDatabase];
-            } else {
-                articlesData = articlesDatabase.filter(article => article.category === category);
-            }
-            
-            displayedArticles = 6;
-            loadArticles();
-        }
-
-        function searchContent(query) {
-            if (!query.trim()) {
-                filterContent(currentFilter);
-                return;
-            }
-            
-            const searchResults = articlesDatabase.filter(article => 
-                article.title.toLowerCase().includes(query.toLowerCase()) ||
-                article.excerpt.toLowerCase().includes(query.toLowerCase()) ||
-                article.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-            );
-            
-            articlesData = searchResults;
-            displayedArticles = 6;
-            loadArticles();
-        }
-
-        function loadMoreArticles() {
-            displayedArticles += 6;
-            loadArticles();
-        }
-
-        function initializeChart() {
-            const chartDom = document.getElementById('topics-chart');
-            const myChart = echarts.init(chartDom);
-            
-            const option = {
-                title: {
-                    text: 'أكثر المواضيع قراءة',
-                    left: 'center',
-                    textStyle: {
-                        color: '#2D5016',
-                        fontSize: 18,
-                        fontWeight: 'bold'
-                    }
-                },
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                    textStyle: {
-                        color: '#36454F'
-                    }
-                },
-                series: [
-                    {
-                        name: 'المقالات',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        itemStyle: {
-                            borderRadius: 10,
-                            borderColor: '#fff',
-                            borderWidth: 2
-                        },
-                        label: {
-                            show: false,
-                            position: 'center'
-                        },
-                        emphasis: {
-                            label: {
-                                show: true,
-                                fontSize: '18',
-                                fontWeight: 'bold',
-                                color: '#2D5016'
-                            }
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        data: [
-                            { value: 35, name: 'العناية بالبشرة', itemStyle: { color: '#2D5016' } },
-                            { value: 28, name: 'الطب البديل', itemStyle: { color: '#87A96B' } },
-                            { value: 22, name: 'التغذية الطبيعية', itemStyle: { color: '#DAA520' } },
-                            { value: 15, name: 'نمط الحياة الصحي', itemStyle: { color: '#8B4513' } }
-                        ]
-                    }
-                ]
-            };
-            
-            myChart.setOption(option);
-            
-            // Make chart responsive
-            window.addEventListener('resize', function() {
-                myChart.resize();
-            });
-        }
-
-        function initializeExpertInterviews() {
-            new Splide('#expert-interviews', {
-                type: 'loop',
-                perPage: 3,
-                perMove: 1,
-                gap: '2rem',
-                autoplay: true,
-                interval: 5000,
-                pauseOnHover: true,
-                breakpoints: {
-                    768: {
-                        perPage: 1,
-                    },
-                    1024: {
-                        perPage: 2,
-                    }
-                }
-            }).mount();
-        }
-
-        function toggleBookmark(itemId) {
-            const index = bookmarkedItems.indexOf(itemId);
-            
-            if (index > -1) {
-                bookmarkedItems.splice(index, 1);
-                showNotification('تم إزالة الإشارة المرجعية', 'info');
-            } else {
-                bookmarkedItems.push(itemId);
-                showNotification('تمت الإضافة للإشارات المرجعية', 'success');
-            }
-            
-            localStorage.setItem('bookmarked-items', JSON.stringify(bookmarkedItems));
-            
-            // Update UI
-            const bookmarkBtn = document.querySelector(`[onclick="toggleBookmark('${itemId}')"]`);
-            if (bookmarkBtn) {
-                bookmarkBtn.classList.toggle('bookmarked');
-            }
-        }
-
-        function readArticle(articleId) {
-            const article = articlesDatabase.find(a => a.id === articleId);
-            if (!article) return;
-            
-            // Create article modal
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-                    <div class="p-8">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <span class="bg-soft-mint text-forest-green px-3 py-1 rounded-full text-sm font-semibold">
-                                        ${getCategoryName(article.category)}
-                                    </span>
-                                    <span class="text-charcoal-gray text-sm">${article.readTime}</span>
-                                </div>
-                                <h2 class="font-display text-3xl font-bold text-forest-green mb-4">
-                                    ${article.title}
-                                </h2>
-                            </div>
-                            <button onclick="this.closest('.fixed').remove()" class="text-charcoal-gray hover:text-sage-green text-3xl">&times;</button>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <img src="${article.image}" alt="${article.title}" 
-                                 class="w-full h-64 object-cover rounded-2xl">
-                        </div>
-                        
-                        <div class="prose max-w-none">
-                            <p class="text-lg text-charcoal-gray leading-relaxed mb-6">
-                                ${article.excerpt}
-                            </p>
-                            
-                            <div class="bg-soft-mint rounded-xl p-6 mb-6">
-                                <h3 class="font-bold text-forest-green mb-3">نقاط مهمة:</h3>
-                                <ul class="space-y-2">
-                                    <li class="flex items-start">
-                                        <span class="w-2 h-2 bg-sage-green rounded-full mr-3 mt-2"></span>
-                                        <span class="text-charcoal-gray">هذا المقال يوفر معلومات تعليمية عامة ولا يغني عن استشارة الطبيب</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="w-2 h-2 bg-sage-green rounded-full mr-3 mt-2"></span>
-                                        <span class="text-charcoal-gray">استشر دائماً خبيراً مختصاً قبل البدء بأي علاج طبيعي</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="w-2 h-2 bg-sage-green rounded-full mr-3 mt-2"></span>
-                                        <span class="text-charcoal-gray">النتائج قد تختلف من شخص لآخر حسب الحالة الصحية</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                                <div class="flex items-center text-sm text-charcoal-gray">
-                                    <span>✍️ ${article.author}</span>
-                                    <span class="mx-3">•</span>
-                                    <span>📅 ${formatDate(article.date)}</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button onclick="toggleBookmark('${article.id}')" 
-                                            class="btn-secondary px-4 py-2 rounded-full text-sm">
-                                        ${bookmarkedItems.includes(article.id) ? 'تم الحفظ' : 'حفظ'}
-                                    </button>
-                                    <button onclick="shareArticle('${article.id}')" 
-                                            class="btn-primary px-4 py-2 rounded-full text-sm">
-                                        مشاركة
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Animate modal
-            anime({
-                targets: modal,
-                opacity: [0, 1],
-                duration: 300,
-                easing: 'easeOutQuart'
-            });
-        }
-
-        function playVideo(videoId) {
-            const video = videosDatabase.find(v => v.id === videoId);
-            if (!video) return;
-            
-            showNotification('جاري تشغيل الفيديو...', 'info');
-            // In a real implementation, this would open a video player
-        }
-
-        function shareArticle(articleId) {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'مقال تعليمي من ريبيو',
-                    text: 'اكتشف هذا المقال التعليمي الرائع!',
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                showNotification('تم نسخ الرابط للمشاركة!', 'success');
-            }
-        }
-
-        function getCategoryName(category) {
-            const names = {
-                'alternative-medicine': 'الطب البديل',
-                'nutrition': 'التغذية',
-                'lifestyle': 'نمط الحياة',
-                'safety': 'السلامة'
-            };
-            return names[category] || category;
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('ar-DZ', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        function initializeReadingProgress() {
-            window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('reading-progress').style.width = scrolled + '%';
-            });
-        }
-
-        function initializeScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // Utility function
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-    </script>
-    <script src="main.js"></script>
-</body>
-</html>
